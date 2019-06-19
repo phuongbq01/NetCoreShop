@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using OnlineShop.Data.EF.Configurations;
 using OnlineShop.Data.EF.Extensions;
 using OnlineShop.Data.Entities;
 using OnlineShop.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -77,10 +80,12 @@ namespace OnlineShop.Data.EF
             builder.AddConfiguration(new ContactDetailConfiguration());
             builder.AddConfiguration(new FooterConfiguration());
             builder.AddConfiguration(new PageConfiguration());
-            builder.AddConfiguration(new FooterConfiguration());
+            builder.AddConfiguration(new FunctionConfiguration());
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new SystemConfigConfiguration());
             builder.AddConfiguration(new AdvertistmentPositionConfiguration());
+            builder.AddConfiguration(new AdvertistmentPageConfiguration());
+            builder.AddConfiguration(new AnnouncementConfiguration());
 
             //base.OnModelCreating(builder);
         }
@@ -103,6 +108,21 @@ namespace OnlineShop.Data.EF
                 }
             }
             return base.SaveChanges();
+        }
+    }
+
+    // Khởi tạo 1 DbContext khởi chạy khi migration
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
+            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            builder.UseSqlServer(connectionString);
+            return new AppDbContext(builder.Options);
         }
     }
 }

@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="DTO\" />
-    <Folder Include="Constants\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 

@@ -13,6 +13,14 @@ using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineShop.Services;
+using OnlineShop.Data.EF;
+using OnlineShop.Data.Entities;
+using AutoMapper;
+using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.Implementations;
+using OnlineShop.Data.IRepositories;
+using OnlineShop.Data.EF.Repositories;
 
 namespace OnlineShop
 {
@@ -35,14 +43,58 @@ namespace OnlineShop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    o => o.MigrationsAssembly("OnlineShop.Data.EF")));
+
+            services.AddDefaultIdentity<AppUser>().AddRoles<AppRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>();
+
+
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+
+
+            services.AddAutoMapper();
+
+            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
+            //services.AddSingleton(Mapper.Configuration);
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+
+            // Seeding data
+            services.AddTransient<DbInitializer>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            // Repository
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
+
+            // Services
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

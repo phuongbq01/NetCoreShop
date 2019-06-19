@@ -13,8 +13,8 @@ namespace OnlineShop.Data.Entities
         [Required]
         public Guid RoleId { get; set; }
 
-        [StringLength(128)]
         [Required]
+        [Column(TypeName ="varchar(128)")]
         public string FunctionId { get; set; }
 
         public bool CanCreate { set; get; }
