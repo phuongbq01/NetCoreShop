@@ -17,12 +17,14 @@ namespace OnlineShop.Services.Implementations
     {
         private IProductCategoryRepository _productCategoryRepository;
         private IUnitOfWork _unitOfWork;
+        IMapper _mapper;
 
         public ProductCategoryService(IProductCategoryRepository productCategoryRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork, IMapper mapper)
         {
             _productCategoryRepository = productCategoryRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
@@ -41,7 +43,7 @@ namespace OnlineShop.Services.Implementations
         public List<ProductCategoryViewModel> GetAll()
         {
             return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                 .ProjectTo<ProductCategoryViewModel>().ToList();
+                 .ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider).ToList();
         }
 
         public List<ProductCategoryViewModel> GetAll(string keyword)
@@ -49,7 +51,7 @@ namespace OnlineShop.Services.Implementations
             if (!string.IsNullOrEmpty(keyword))
                 return _productCategoryRepository.FindAll(x => x.Name.Contains(keyword)
                 || x.Description.Contains(keyword))
-                    .OrderBy(x => x.ParentId).ProjectTo<ProductCategoryViewModel>().ToList();
+                    .OrderBy(x => x.ParentId).ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider).ToList();
             else
                 return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
                     .ProjectTo<ProductCategoryViewModel>()
@@ -60,7 +62,7 @@ namespace OnlineShop.Services.Implementations
         {
             return _productCategoryRepository.FindAll(x => x.Status == Status.Active
             && x.ParentId == parentId)
-             .ProjectTo<ProductCategoryViewModel>()
+             .ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider)
              .ToList();
         }
 
@@ -74,7 +76,7 @@ namespace OnlineShop.Services.Implementations
             var query = _productCategoryRepository
                 .FindAll(x => x.HomeFlag == true, c => c.Products)
                   .OrderBy(x => x.HomeOrder)
-                  .Take(top).ProjectTo<ProductCategoryViewModel>();
+                  .Take(top).ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider);
 
             var categories = query.ToList();
             foreach (var category in categories)

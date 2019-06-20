@@ -24,6 +24,8 @@ using OnlineShop.Data.EF.Repositories;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using OnlineShop.Helpers;
+using OnlineShop.Infrastructure.Interfaces;
+using OnlineShop.Services.AutoMapper;
 
 namespace OnlineShop
 {
@@ -76,8 +78,10 @@ namespace OnlineShop
 
 
             // Add AutoMapper
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup).Assembly);
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddSingleton(Mapper.Configuration);
+            services.AddSingleton<AutoMapper.IConfigurationProvider>(AutoMapperConfig.RegisterMappings());
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
 
@@ -97,12 +101,18 @@ namespace OnlineShop
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
 
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+
             // Repository
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IFunctionRepository, FunctionRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IFunctionService, FunctionService>();
 
             
         }
