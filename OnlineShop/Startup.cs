@@ -21,6 +21,9 @@ using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.Implementations;
 using OnlineShop.Data.IRepositories;
 using OnlineShop.Data.EF.Repositories;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using OnlineShop.Helpers;
 
 namespace OnlineShop
 {
@@ -72,19 +75,26 @@ namespace OnlineShop
             });
 
 
+            // Add AutoMapper
             services.AddAutoMapper();
-
-            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
-            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-
             //services.AddSingleton(Mapper.Configuration);
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
+
+            // Add application services.
+            services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
+            
             // Seeding data
             services.AddTransient<DbInitializer>();
 
+            // 
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
 
             // Repository
@@ -98,8 +108,9 @@ namespace OnlineShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/Shop-{Date}.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -123,6 +134,10 @@ namespace OnlineShop
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "AreaRoute",
+                    template: "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
         }
     }
