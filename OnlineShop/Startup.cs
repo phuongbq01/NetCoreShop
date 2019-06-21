@@ -79,7 +79,6 @@ namespace OnlineShop
 
             // Add AutoMapper
             services.AddAutoMapper(typeof(Startup).Assembly);
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //services.AddSingleton(Mapper.Configuration);
             services.AddSingleton<AutoMapper.IConfigurationProvider>(AutoMapperConfig.RegisterMappings());
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
@@ -108,6 +107,8 @@ namespace OnlineShop
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
+            services.AddTransient<IProductTagRepository, ProductTagRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();

@@ -29,7 +29,8 @@ namespace OnlineShop.Services.Implementations
 
         public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
         {
-            var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            //var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
             _productCategoryRepository.Add(productCategory);
             return productCategoryVm;
 
@@ -54,7 +55,7 @@ namespace OnlineShop.Services.Implementations
                     .OrderBy(x => x.ParentId).ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider).ToList();
             else
                 return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                    .ProjectTo<ProductCategoryViewModel>()
+                    .ProjectTo<ProductCategoryViewModel>(_mapper.ConfigurationProvider)
                     .ToList();
         }
 
@@ -68,7 +69,8 @@ namespace OnlineShop.Services.Implementations
 
         public ProductCategoryViewModel GetById(int id)
         {
-            return Mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id));
+            //return Mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id));
+            return _mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id));
         }
 
         public List<ProductCategoryViewModel> GetHomeCategories(int top)
@@ -109,7 +111,9 @@ namespace OnlineShop.Services.Implementations
 
         public void Update(ProductCategoryViewModel productCategoryVm)
         {
-            throw new NotImplementedException();
+            //var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            _productCategoryRepository.Update(productCategory);
         }
 
         public void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items)
