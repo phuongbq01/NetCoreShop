@@ -3,6 +3,7 @@
         loadCategories();
         loadData();
         registerEvents();
+        registerControls();
     }
 
     function registerEvents() {
@@ -44,6 +45,34 @@
             $('#modal-add-edit').modal('show');
         });
 
+        $('#btnSelectImg').on('click', function () {
+            $('#fileInputImage').click();
+        });
+
+        $("#fileInputImage").on('change', function () {
+            var fileUpload = $(this).get(0);
+            var files = fileUpload.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Upload/UploadImage",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (path) {
+                    $('#txtImage').val(path);
+                    Common.notify('Upload image succesful!', 'success');
+
+                },
+                error: function () {
+                    Common.notify('There was error uploading files!', 'error');
+                }
+            });
+        });
+
         $('body').on('click', '.btn-edit', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
@@ -68,7 +97,7 @@
                     $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
 
-                    // $('#txtImageM').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.ThumbnailImage);
 
                     $('#txtTagM').val(data.Tags);
                     $('#txtMetakeywordM').val(data.SeoKeywords);
@@ -76,7 +105,7 @@
                     $('#txtSeoPageTitleM').val(data.SeoPageTitle);
                     $('#txtSeoAliasM').val(data.SeoAlias);
 
-                    //CKEDITOR.instances.txtContent.setData(data.Content);
+                    CKEDITOR.instances.txtContent.setData(data.Content);
                     $('#ckStatusM').prop('checked', data.Status == 1);
                     $('#ckHotM').prop('checked', data.HotFlag);
                     $('#ckShowHomeM').prop('checked', data.HomeFlag);
@@ -130,7 +159,7 @@
                 var originalPrice = $('#txtOriginalPriceM').val();
                 var promotionPrice = $('#txtPromotionPriceM').val();
 
-                //var image = $('#txtImageM').val();
+                var image = $('#txtImage').val();
 
                 var tags = $('#txtTagM').val();
                 var seoKeyword = $('#txtMetakeywordM').val();
@@ -138,7 +167,7 @@
                 var seoPageTitle = $('#txtSeoPageTitleM').val();
                 var seoAlias = $('#txtSeoAliasM').val();
 
-                //var content = CKEDITOR.instances.txtContent.getData();
+                var content = CKEDITOR.instances.txtContent.getData();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 var hot = $('#ckHotM').prop('checked');
                 var showHome = $('#ckShowHomeM').prop('checked');
@@ -150,12 +179,12 @@
                         Id: id,
                         Name: name,
                         CategoryId: categoryId,
-                        Image: '',
+                        Image: image,
                         Price: price,
                         OriginalPrice: originalPrice,
                         PromotionPrice: promotionPrice,
                         Description: description,
-                       // Content: content,
+                        Content: content,
                         HomeFlag: showHome,
                         HotFlag: hot,
                         Tags: tags,
@@ -188,6 +217,26 @@
 
         });
 
+    }
+
+    function registerControls() {
+        CKEDITOR.replace('txtContent', {});
+
+        //Fix: cannot click on element ck in modal
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {
+            $(document)
+                .off('focusin.bs.modal') // guard against infinite focus loop
+                .on('focusin.bs.modal', $.proxy(function (e) {
+                    if (
+                        this.$element[0] !== e.target && !this.$element.has(e.target).length
+                        // CKEditor compatibility fix start.
+                        && !$(e.target).closest('.cke_dialog, .cke').length
+                        // CKEditor compatibility fix end.
+                    ) {
+                        this.$element.trigger('focus');
+                    }
+                }, this));
+        };
     }
 
     function initTreeDropDownCategory(selectedId) {
@@ -236,7 +285,7 @@
         $('#txtSeoPageTitleM').val('');
         $('#txtSeoAliasM').val('');
 
-        //CKEDITOR.instances.txtContentM.setData('');
+        CKEDITOR.instances.txtContent.setData('');
         $('#ckStatusM').prop('checked', true);
         $('#ckHotM').prop('checked', false);
         $('#ckShowHomeM').prop('checked', false);
