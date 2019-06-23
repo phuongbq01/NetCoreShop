@@ -2,13 +2,13 @@
 @using Microsoft.AspNetCore.Authorization
 @using OnlineShop.Authorization
 @inject IAuthorizationService AuthorizationService
-@section Styles{ 
-<link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
-<link href="~/lib/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
+@section Styles{
+    <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
 }
 
 @section Scripts{
-<script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
     <script src="~/App/Controller/Product/Index.js" asp-append-version="true"></script>
     <script>
         var product = new productController();
@@ -21,12 +21,12 @@
         <h3>Danh Sách Sản Phẩm</h3>
     </div>
     <div class="title_right">
-        <div class="col-md-4 col-sm-12  form-group pull-right top_search">
+        <div class="col-md-3 col-sm-12  form-group pull-right top_search">
             <select class="form-control" id="ddlCategorySearch">
                 <option>--Select category--</option>
             </select>
         </div>
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="col-md-3 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
                 <input type="text" id="txtKeyword" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
@@ -36,8 +36,11 @@
         </div>
         @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Create)).Succeeded)
         {
-            <div class="col-md-2 col-sm-12  form-group pull-right">
+            <div class="col-md-6 col-sm-12  form-group pull-right">
                 <button id="btnCreate" class="btn btn-success">Create</button>
+                <a class="btn btn-danger" href="~/templates/ProductImportTemplate.xlsx">Template</a>
+                <button class="btn btn-primary" id="btn-import" type="button"><i class="fa fa-file-excel-o"></i></button>
+                <button class="btn btn-default" id="btn-export" type="button"><i class="fa fa-forward"></i></button>
             </div>
         }
     </div>
@@ -112,3 +115,4 @@
     </tr>
 </script>
 @Html.Partial("_AddEditModal.cshtml")
+@Html.Partial("_ImportExcelModal.cshtml")

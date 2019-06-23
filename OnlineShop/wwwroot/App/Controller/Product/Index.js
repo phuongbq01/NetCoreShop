@@ -217,6 +217,55 @@
 
         });
 
+        // sự kiện bật form load file
+        $('#btn-import').on('click', function () {
+            initTreeDropDownCategory();
+            $('#modal-import-excel').modal('show');
+        });
+
+        // sự kiện button save load file
+        $('#btnImportExcel').on('click', function () {
+            var fileUpload = $('#fileInputExcel').get(0);
+            var files = fileUpload.files;
+
+            var fileData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                fileData.append("files", files[i]);
+            }
+
+            fileData.append('categoryId', $('#ddlCategoryIdImportExcel').combotree('getValue'));
+            $.ajax({
+                url: '/Admin/Product/ImportExcel',
+                type: 'post',
+                data: fileData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#modal-import-excel').modal('hide');
+                    loadData();
+                }
+            });
+            return false;
+        });
+
+        // sự kiện click button export
+        $('#btn-export').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Product/ExportExcel",
+                beforeSend: function () {
+                    Common.startLoading();
+                },
+                success: function (response) {
+                    window.location.href = response;
+                    Common.stopLoading();
+                },
+                error: function () {
+                    Common.notify('Has an error in progress', 'error');
+                    Common.stopLoading();
+                }
+            });
+        });
     }
 
     function registerControls() {
@@ -257,6 +306,9 @@
                 });
                 var arr = Common.unflattern(data);
                 $('#ddlCategoryIdM').combotree({
+                    data: arr
+                });
+                $('#ddlCategoryIdImportExcel').combotree({
                     data: arr
                 });
                 if (selectedId != undefined) {
