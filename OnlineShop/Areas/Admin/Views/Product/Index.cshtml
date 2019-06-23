@@ -1,4 +1,7 @@
 ﻿
+@using Microsoft.AspNetCore.Authorization
+@using OnlineShop.Authorization
+@inject IAuthorizationService AuthorizationService
 @section Styles{ 
 <link href="~/lib/jQuery-EasyUI/themes/bootstrap/easyui.css" rel="stylesheet" />
 <link href="~/lib/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
@@ -6,7 +9,7 @@
 
 @section Scripts{
 <script src="~/lib/jQuery-EasyUI/jquery.easyui.min.js"></script>
-    <script src="~/App/Controller/Product/Index.js"></script>
+    <script src="~/App/Controller/Product/Index.js" asp-append-version="true"></script>
     <script>
         var product = new productController();
         product.initialize();
@@ -31,9 +34,12 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2 col-sm-12  form-group pull-right">
-            <button id="btnCreate" class="btn btn-success">Create</button>
-        </div>
+        @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Create)).Succeeded)
+        {
+            <div class="col-md-2 col-sm-12  form-group pull-right">
+                <button id="btnCreate" class="btn btn-success">Create</button>
+            </div>
+        }
     </div>
 </div>
 
@@ -87,8 +93,15 @@
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
         <th scope="row">
-            <button class="btn btn-default btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></button>
-            <button class="btn btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Update)).Succeeded)
+            {
+                <button class="btn btn-default btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></button>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Delete)).Succeeded)
+            {
+                <button class="btn btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
+            }
+
         </th>
         <td>{{{Image}}}</td>
         <td>{{Name}}</td>

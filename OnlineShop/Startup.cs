@@ -26,6 +26,8 @@ using Newtonsoft.Json.Serialization;
 using OnlineShop.Helpers;
 using OnlineShop.Infrastructure.Interfaces;
 using OnlineShop.Services.AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using OnlineShop.Authorization;
 
 namespace OnlineShop
 {
@@ -109,13 +111,18 @@ namespace OnlineShop
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IPermissionRepository, PermissionRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IFunctionService, FunctionService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
-            
+
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

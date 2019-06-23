@@ -85,6 +85,7 @@
         var hh = newdate.getHours();
         var mm = newdate.getMinutes();
         var ss = newdate.getSeconds();
+
         if (month < 10)
             month = "0" + month;
         if (day < 10)

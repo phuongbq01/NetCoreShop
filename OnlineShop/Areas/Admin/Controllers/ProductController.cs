@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OnlineShop.Authorization;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.ViewModels.product;
 using OnlineShop.Utilities.Helpers;
@@ -17,14 +18,21 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         private readonly IProductService _productService;
         private readonly IProductCategoryService _productCategoryService;
-        public ProductController(IProductService productService, IProductCategoryService productCategoryService)
+        private readonly IAuthorizationService _authorizationService;
+
+        public ProductController(IProductService productService, IProductCategoryService productCategoryService, IAuthorizationService authorizationService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
+            _authorizationService = authorizationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var result = await _authorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Read);
+            if (result.Succeeded == false)  // Nếu không có quyền trả về trang Login
+                return new RedirectResult("/Admin/Login/Index");
+
             return View();
         }
 
