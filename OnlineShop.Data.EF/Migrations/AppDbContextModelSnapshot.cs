@@ -299,7 +299,7 @@ namespace OnlineShop.Data.EF.Migrations
                         .IsRequired()
                         .HasMaxLength(256);
 
-                    b.Property<Guid>("CustomerId");
+                    b.Property<Guid?>("CustomerId");
 
                     b.Property<string>("CustomerMessage")
                         .IsRequired()
@@ -946,8 +946,7 @@ namespace OnlineShop.Data.EF.Migrations
                 {
                     b.HasOne("OnlineShop.Data.Entities.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("OnlineShop.Data.Entities.BillDetail", b =>
@@ -1036,7 +1035,7 @@ namespace OnlineShop.Data.EF.Migrations
             modelBuilder.Entity("OnlineShop.Data.Entities.ProductTag", b =>
                 {
                     b.HasOne("OnlineShop.Data.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductTags")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 

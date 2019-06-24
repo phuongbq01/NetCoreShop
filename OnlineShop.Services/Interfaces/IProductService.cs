@@ -20,6 +20,19 @@ namespace OnlineShop.Services.Interfaces
 
         ProductViewModel GetById(int id);
 
+        void AddQuantity(int productId, List<ProductQuantityViewModel> quantities);
+
+        List<ProductQuantityViewModel> GetQuantities(int productId);
+
+        void AddImages(int productId, string[] images);
+
+        List<ProductImageViewModel> GetImages(int productId);
+
+        void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
+
+        List<WholePriceViewModel> GetWholePrices(int productId);
+
+
         void ImportExcel(string filePath, int categoryId);
 
         void Save();
