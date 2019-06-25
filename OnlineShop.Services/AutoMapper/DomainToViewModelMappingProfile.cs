@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using OnlineShop.Data.Entities;
+using OnlineShop.Services.ViewModels.Blog;
+using OnlineShop.Services.ViewModels.Common;
 using OnlineShop.Services.ViewModels.product;
 using OnlineShop.Services.ViewModels.system;
 using System;
@@ -25,6 +27,11 @@ namespace OnlineShop.Services.AutoMapper
             CreateMap<ProductQuantity, ProductQuantityViewModel>().MaxDepth(2);
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
             CreateMap<WholePrice, WholePriceViewModel>().MaxDepth(2);
+            CreateMap<Blog, BlogViewModel>().MaxDepth(2);
+            CreateMap<BlogTag, BlogTagViewModel>().MaxDepth(2);
+            CreateMap<Slide, SlideViewModel>().MaxDepth(2);
+            CreateMap<SystemConfig, SystemConfigViewModel>().MaxDepth(2);
+            CreateMap<Footer, FooterViewModel>().MaxDepth(2);
         }
     }
 }

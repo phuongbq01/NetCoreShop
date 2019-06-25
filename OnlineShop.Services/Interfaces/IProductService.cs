@@ -1,4 +1,5 @@
-﻿using OnlineShop.Services.ViewModels.product;
+﻿using OnlineShop.Services.ViewModels.Common;
+using OnlineShop.Services.ViewModels.product;
 using OnlineShop.Utilities.DTO;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,15 @@ namespace OnlineShop.Services.Interfaces
         void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
 
         List<WholePriceViewModel> GetWholePrices(int productId);
+
+        List<ProductViewModel> GetLastest(int top);
+
+        List<ProductViewModel> GetHotProduct(int top);
+        List<ProductViewModel> GetRelatedProducts(int id, int top);
+
+        List<ProductViewModel> GetUpsellProducts(int top);
+
+        List<TagViewModel> GetProductTags(int productId);
 
 
         void ImportExcel(string filePath, int categoryId);

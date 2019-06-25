@@ -325,6 +325,7 @@
             }
         });
     }
+
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
@@ -396,14 +397,14 @@
                         CreatedDate: Common.dateTimeFormatJson(item.DateCreated),
                         Status: Common.getStatus(item.Status)
                     });
-                    $('#lblTotalRecords').text(response.RowCount);
-                    if (render != '') {
-                        $('#tbl-content').html(render);
-                    }
-                    wrapPaging(response.RowCount, function () {
-                        loadData();
-                    }, isPageChanged);
                 });
+                $('#lblTotalRecords').text(response.RowCount);
+                if (render != '') {
+                    $('#tbl-content').html(render);
+                }
+                wrapPaging(response.RowCount, function () {
+                    loadData();
+                }, isPageChanged);
             },
             error: function (status) {
                 console.log(status);

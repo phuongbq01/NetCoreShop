@@ -6,6 +6,7 @@ using OnlineShop.Data.Enums;
 using OnlineShop.Data.IRepositories;
 using OnlineShop.Infrastructure.Interfaces;
 using OnlineShop.Services.Interfaces;
+using OnlineShop.Services.ViewModels.Common;
 using OnlineShop.Services.ViewModels.product;
 using OnlineShop.Utilities.Constants;
 using OnlineShop.Utilities.DTO;
@@ -228,6 +229,59 @@ namespace OnlineShop.Services.Implementations
         public List<WholePriceViewModel> GetWholePrices(int productId)
         {
             return _wholePriceRepository.FindAll(x => x.ProductId == productId).ProjectTo<WholePriceViewModel>(_mapper.ConfigurationProvider).ToList();
+        }
+
+
+        public List<ProductViewModel> GetLastest(int top)
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.DateCreated)
+                .Take(top).ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider).ToList();
+        }
+
+        public List<ProductViewModel> GetHotProduct(int top)
+        {
+            return _productRepository.FindAll(x => x.Status == Status.Active && x.HotFlag == true)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(top)
+                .ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider)
+                .ToList();
+        }
+
+        public List<ProductViewModel> GetRelatedProducts(int id, int top)
+        {
+            var product = _productRepository.FindById(id);
+            return _productRepository.FindAll(x => x.Status == Status.Active
+                && x.Id != id && x.CategoryId == product.CategoryId)
+            .OrderByDescending(x => x.DateCreated)
+            .Take(top)
+            .ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider)
+            .ToList();
+        }
+
+        public List<ProductViewModel> GetUpsellProducts(int top)
+        {
+            return _productRepository.FindAll(x => x.PromotionPrice != null)
+               .OrderByDescending(x => x.DateModified)
+               .Take(top)
+               .ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider).ToList();
+        }
+
+        public List<TagViewModel> GetProductTags(int productId)
+        {
+            var tags = _tagRepository.FindAll();
+            var productTags = _productTagRepository.FindAll();
+
+            var query = from t in tags
+                        join pt in productTags
+                        on t.Id equals pt.TagId
+                        where pt.ProductId == productId
+                        select new TagViewModel()
+                        {
+                            Id = t.Id,
+                            Name = t.Name
+                        };
+            return query.ToList();
+
         }
 
 

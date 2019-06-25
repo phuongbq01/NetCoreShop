@@ -1,78 +1,89 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
+    <!-- Basic page needs -->
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@*@ViewData["Title"]*@</title>
+    <meta name="description" content="@*@ViewData["MetaDescription"]*@">
+    <meta name="keywords" content="@*@ViewData["MetaKeyword"]*@" />
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
-    </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Mobile specific metas  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicons Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- CSS Style -->
+    <link rel="stylesheet" href="~/client-side/style.css">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+<body class="@ViewData["BodyClass"]>
+
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- mobile menu -->
+    @await  Component.InvokeAsync("MobileMenu")
+    <!-- end mobile menu -->
+    <div id="page">
+
+        <!-- Header -->
+        @Html.Partial("_Header.cshtml")
+        <!-- end header -->
+        <nav>
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="mm-toggle-wrap">
+                        <div class="mm-toggle"><i class="fa fa-align-justify"></i> </div>
+                        <span class="mm-label">All Categories</span>
+                    </div>
+                    <div class="col-md-3 col-sm-3 mega-container hidden-xs">
+                        @await Component.InvokeAsync("CategoryMenu")
+                    </div>
+                    <div class="col-md-9 col-sm-9 jtv-megamenu">
+                        @await  Component.InvokeAsync("MainMenu")
+                    </div>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+        @RenderBody()
+        <!-- Footer -->
+        @Html.Partial("_Footer.cshtml")
+
+        <!-- End Footer -->
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <!-- JS -->
+    <!-- jquery js -->
+    <script src="~/client-side/js/jquery.min.js"></script>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- bootstrap js -->
+    <script src="~/client-side/js/bootstrap.min.js"></script>
 
-    @RenderSection("Scripts", required: false)
+    <!-- owl.carousel.min js -->
+    <script src="~/client-side/js/owl.carousel.min.js"></script>
+
+    <!-- jquery.mobile-menu js -->
+    <script src="~/client-side/js/mobile-menu.js"></script>
+
+    <!--jquery-ui.min js -->
+    <script src="~/client-side/js/jquery-ui.js"></script>
+
+    <!-- main js -->
+    <script src="~/client-side/js/main.js"></script>
+
+    <!-- countdown js -->
+    <script src="~/client-side/js/countdown.js"></script>
+
+    <!-- Slider Js -->
+    <script src="~/client-side/js/revolution-slider.js"></script>
+    @RenderSection("Scripts", required:false)
+
+    
 </body>
 </html>

@@ -28,6 +28,7 @@ using OnlineShop.Infrastructure.Interfaces;
 using OnlineShop.Services.AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using OnlineShop.Authorization;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace OnlineShop
 {
@@ -85,6 +86,22 @@ namespace OnlineShop
             services.AddSingleton<AutoMapper.IConfigurationProvider>(AutoMapperConfig.RegisterMappings());
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
+            // EmailSender
+            services.AddTransient<IEmailSender, EmailSender>();
+
+            // recaptcha
+            services.AddRecaptcha(new RecaptchaOptions {
+                SiteKey = Configuration["Recaptcha:SiteKey"],
+                SecretKey = Configuration["Recaptcha:SecretKey"]
+            });
+
+            // Session
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+
+            });
+
 
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -119,6 +136,11 @@ namespace OnlineShop
             services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
             services.AddTransient<IProductImageRepository, ProductImageRepository>();
             services.AddTransient<IWholePriceRepository, WholePriceRepository>();
+            services.AddTransient<IBlogRepository, BlogRepository>();
+            services.AddTransient<IBlogTagRepository, BlogTagRepository>();
+            services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
+            services.AddTransient<ISlideRepository, SlideRepository>();
+            services.AddTransient<IFooterRepository, FooterRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -127,6 +149,8 @@ namespace OnlineShop
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IBillService, BillService>();
+            services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<IBlogService, BlogService>();
 
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
@@ -153,6 +177,7 @@ namespace OnlineShop
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

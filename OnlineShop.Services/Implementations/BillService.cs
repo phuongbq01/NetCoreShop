@@ -179,6 +179,16 @@ namespace OnlineShop.Services.Implementations
             _orderDetailRepository.Remove(detail);
         }
 
+        public ColorViewModel GetColor(int id)
+        {
+            return _mapper.Map<Color, ColorViewModel>(_colorRepository.FindById(id));
+        }
+
+        public SizeViewModel GetSize(int id)
+        {
+            return _mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
+        }
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

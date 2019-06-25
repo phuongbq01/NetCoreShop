@@ -17,10 +17,11 @@
                 }
             }
         });
+
         $('#btnLogin').on('click', function (e) {
             if ($('#frmLogin').valid()) {
                 e.preventDefault();
-                var user = $('#txtUserName').val();
+                var email = $('#txtUserName').val();
                 var password = $('#txtPassword').val();
                 login(user, password);
             }
@@ -28,11 +29,11 @@
         });
     }
 
-    var login = function (user, pass) {
+    var login = function (email, pass) {
         $.ajax({
             type: 'POST',
             data: {
-                UserName: user,
+                Email: user,
                 Password: pass
             },
             dateType: 'json',

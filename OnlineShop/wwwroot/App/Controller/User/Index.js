@@ -255,7 +255,6 @@
             type: "GET",
             url: "/Admin/User/GetAllPaging",
             data: {
-                categoryId: $('#ddl-category-search').val(),
                 keyword: $('#txt-search-keyword').val(),
                 page: Common.configs.pageIndex,
                 pageSize: Common.configs.pageSize
