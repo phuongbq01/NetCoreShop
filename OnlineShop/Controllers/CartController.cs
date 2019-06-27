@@ -46,7 +46,10 @@ namespace OnlineShop.Controllers
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
             if (session == null)
+            {
                 session = new List<ShoppingCartViewModel>();
+            }
+                
             return new OkObjectResult(session);
         }
 
@@ -116,6 +119,8 @@ namespace OnlineShop.Controllers
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
+                var a = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
+                GetCart();
             }
             return new OkObjectResult(productId);
         }
@@ -170,6 +175,20 @@ namespace OnlineShop.Controllers
                 return new OkObjectResult(productId);
             }
             return new EmptyResult();
+        }
+
+        [HttpGet]
+        public IActionResult GetColors()
+        {
+            var colors = _billService.GetColors();
+            return new OkObjectResult(colors);
+        }
+
+        [HttpGet]
+        public IActionResult GetSizes()
+        {
+            var sizes = _billService.GetSizes();
+            return new OkObjectResult(sizes);
         }
 
         #endregion

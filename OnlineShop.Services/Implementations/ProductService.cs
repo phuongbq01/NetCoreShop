@@ -281,7 +281,14 @@ namespace OnlineShop.Services.Implementations
                             Name = t.Name
                         };
             return query.ToList();
+        }
 
+        public bool CheckAvailability(int productId, int size, int color)
+        {
+            var quantity = _productQuantityRepository.FindSingle(x => x.ColorId == color && x.SizeId == size && x.ProductId == productId);
+            if (quantity == null)
+                return false;
+            return quantity.Quantity > 0;
         }
 
 

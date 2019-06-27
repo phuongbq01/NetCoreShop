@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using OnlineShop.Data.Entities;
-using OnlineShop.Data.Enums;
-using OnlineShop.Extensions;
+using Microsoft.Extensions.Options;
 using OnlineShop.Models;
 using OnlineShop.Models.AccountViewModels;
 using OnlineShop.Services;
+using OnlineShop.Data.Entities;
+using OnlineShop.Data.Enums;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using OnlineShop.Extensions;
 
 namespace OnlineShop.Controllers
 {
@@ -246,7 +248,7 @@ namespace OnlineShop.Controllers
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 _logger.LogInformation("User created a new account with password.");
@@ -310,7 +312,7 @@ namespace OnlineShop.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                return View("ExternalLogin", new ExternalLoginViewModel());
             }
         }
 
@@ -327,7 +329,16 @@ namespace OnlineShop.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                var user = new AppUser
+                {
+                    UserName = email,
+                    Email = email,
+                    FullName = model.FullName,
+                    BirthDay = DateTime.Parse(model.DOB),
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

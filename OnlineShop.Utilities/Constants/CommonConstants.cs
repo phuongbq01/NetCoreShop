@@ -8,6 +8,8 @@ namespace OnlineShop.Utilities.Constants
     {
         public const string DefaultFooterId = "DefaultFooterId";
 
+        public const string DefaultContactID = "default";
+
         public const string CartSession = "CartSession";
 
         public const string AdminRole = "Admin";

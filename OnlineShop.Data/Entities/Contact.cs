@@ -8,6 +8,22 @@ namespace OnlineShop.Data.Entities
     [Table("Contacts")]
     public class Contact : DomainEntity<string>
     {
+        public Contact() { }
+
+        public Contact(string id, string name, string phone, string email,
+            string website, string address, string other, double? longtitude, double? latitude, Status status)
+        {
+            Id = id;
+            Name = name;
+            Phone = phone;
+            Email = email;
+            Website = website;
+            Address = address;
+            Other = other;
+            Lng = longtitude;
+            Lat = latitude;
+            Status = status;
+        }
 
         [StringLength(250)]
         [Required]

@@ -42,6 +42,8 @@ namespace OnlineShop.Services.Interfaces
 
         List<TagViewModel> GetProductTags(int productId);
 
+        bool CheckAvailability(int productId, int size, int color);
+
 
         void ImportExcel(string filePath, int categoryId);
 

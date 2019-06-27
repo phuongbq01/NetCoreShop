@@ -1,4 +1,5 @@
-﻿using OnlineShop.Services.ViewModels.Common;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using OnlineShop.Services.ViewModels.Common;
 using OnlineShop.Services.ViewModels.product;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace OnlineShop.Models.ProductViewModels
     {
         public ProductViewModel Product { get; set; }
 
+        public bool Available { get; set; }
+
         public List<ProductViewModel> RelatedProducts { get; set; }
 
         public ProductCategoryViewModel Category { get; set; }
@@ -22,5 +25,9 @@ namespace OnlineShop.Models.ProductViewModels
         public List<ProductViewModel> LastestProducts { get; set; }
 
         public List<TagViewModel> Tags { set; get; }
+
+        public List<SelectListItem> Colors { get; set; }
+
+        public List<SelectListItem> Sizes { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using OnlineShop.Data.Entities;
+using OnlineShop.Services.ViewModels.Blog;
+using OnlineShop.Services.ViewModels.Common;
 using OnlineShop.Services.ViewModels.product;
 using OnlineShop.Services.ViewModels.system;
 using System;
@@ -34,6 +36,15 @@ namespace OnlineShop.Services.AutoMapper
             CreateMap<BillDetailViewModel, BillDetail>()
               .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
               c.Quantity, c.Price, c.ColorId, c.SizeId));
+
+            CreateMap<ContactViewModel, Contact>()
+                .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
+
+            CreateMap<FeedbackViewModel, Feedback>()
+                .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
+
+            CreateMap<PageViewModel, Page>()
+             .ConstructUsing(c => new Page(c.Id, c.Name, c.Alias, c.Content, c.Status));
         }
     }
 

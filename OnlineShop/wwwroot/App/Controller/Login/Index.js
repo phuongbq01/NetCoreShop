@@ -21,7 +21,7 @@
         $('#btnLogin').on('click', function (e) {
             if ($('#frmLogin').valid()) {
                 e.preventDefault();
-                var email = $('#txtUserName').val();
+                var user = $('#txtUserName').val();
                 var password = $('#txtPassword').val();
                 login(user, password);
             }
@@ -29,7 +29,7 @@
         });
     }
 
-    var login = function (email, pass) {
+    var login = function (user, pass) {
         $.ajax({
             type: 'POST',
             data: {

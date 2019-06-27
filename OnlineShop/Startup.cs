@@ -29,6 +29,7 @@ using OnlineShop.Services.AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using OnlineShop.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
+using OnlineShop.Extensions;
 
 namespace OnlineShop
 {
@@ -60,6 +61,10 @@ namespace OnlineShop
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<AppDbContext>();
 
+            // In-memory caching
+            services.AddMemoryCache();
+
+            services.AddMinResponse();
 
             // Configure Identity
             services.Configure<IdentityOptions>(options =>
@@ -88,6 +93,7 @@ namespace OnlineShop
 
             // EmailSender
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
 
             // recaptcha
             services.AddRecaptcha(new RecaptchaOptions {
@@ -96,10 +102,10 @@ namespace OnlineShop
             });
 
             // Session
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromHours(2);
                 options.Cookie.HttpOnly = true;
-
             });
 
 
@@ -111,12 +117,27 @@ namespace OnlineShop
             // Seeding data
             services.AddTransient<DbInitializer>();
 
-            // 
+            // Extensions for Claim
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddSessionStateTempDataProvider()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+
+            // Authentications
+            services.AddAuthentication()
+                .AddFacebook(facebookOps =>
+                {
+                    facebookOps.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOps.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                })
+                .AddGoogle(googleOps =>
+                 {
+                     googleOps.ClientId = Configuration["Authentication:Google:ClientId"];
+                     googleOps.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                 });
+
 
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
@@ -141,6 +162,9 @@ namespace OnlineShop
             services.AddTransient<ISystemConfigRepository, SystemConfigRepository>();
             services.AddTransient<ISlideRepository, SlideRepository>();
             services.AddTransient<IFooterRepository, FooterRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+            services.AddTransient<IPageRepository, PageRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -151,6 +175,9 @@ namespace OnlineShop
             services.AddTransient<IBillService, BillService>();
             services.AddTransient<ICommonService, CommonService>();
             services.AddTransient<IBlogService, BlogService>();
+            services.AddTransient<IContactService, ContactService>();
+            services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IPageService, PageService>();
 
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
@@ -175,6 +202,8 @@ namespace OnlineShop
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            //app.UseMinResponse();
 
             app.UseAuthentication();
             app.UseSession();
