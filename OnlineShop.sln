@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop", "OnlineShop\OnlineShop.csproj", "{40F16718-CCB3-483F-BDB9-2600CD0CCF16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop", "OnlineShop\OnlineShop.csproj", "{40F16718-CCB3-483F-BDB9-2600CD0CCF16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E1546107-8F0A-4212-9869-12E4BA588578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E1546107-8F0A-4212-9869-12E4BA588578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Utilities", "OnlineShop.Utilities\OnlineShop.Utilities.csproj", "{9558EC61-2111-48A5-908D-F9213CA5EE1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Utilities", "OnlineShop.Utilities\OnlineShop.Utilities.csproj", "{9558EC61-2111-48A5-908D-F9213CA5EE1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Data", "OnlineShop.Data\OnlineShop.Data.csproj", "{977A57E8-D236-48BB-9CCE-5D144920A862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Data", "OnlineShop.Data\OnlineShop.Data.csproj", "{977A57E8-D236-48BB-9CCE-5D144920A862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Data.EF", "OnlineShop.Data.EF\OnlineShop.Data.EF.csproj", "{543F39AA-2165-471C-AA62-70121321757C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Data.EF", "OnlineShop.Data.EF\OnlineShop.Data.EF.csproj", "{543F39AA-2165-471C-AA62-70121321757C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Services", "OnlineShop.Services\OnlineShop.Services.csproj", "{06CA1B16-AC6F-4B5B-A573-C2F43364D88C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Services", "OnlineShop.Services\OnlineShop.Services.csproj", "{06CA1B16-AC6F-4B5B-A573-C2F43364D88C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{63B402E4-033E-4F01-A2B7-1278E392ABF3}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{31A3B785-4A4A-4F18-904E-8FA76B345197}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Services", "2-Services", "{2CE6F442-9AFE-41FF-8425-30BFC6D3A851}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Service.Dapper", "OnlineShop.Service.Dapper\OnlineShop.Service.Dapper.csproj", "{A424037F-4220-419A-8DB3-F945EF6CB512}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{06CA1B16-AC6F-4B5B-A573-C2F43364D88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06CA1B16-AC6F-4B5B-A573-C2F43364D88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06CA1B16-AC6F-4B5B-A573-C2F43364D88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A424037F-4220-419A-8DB3-F945EF6CB512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A424037F-4220-419A-8DB3-F945EF6CB512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A424037F-4220-419A-8DB3-F945EF6CB512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A424037F-4220-419A-8DB3-F945EF6CB512}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{977A57E8-D236-48BB-9CCE-5D144920A862} = {71FA6AFD-1332-4F5F-A6A2-9BF4A7E55AC6}
 		{543F39AA-2165-471C-AA62-70121321757C} = {71FA6AFD-1332-4F5F-A6A2-9BF4A7E55AC6}
 		{06CA1B16-AC6F-4B5B-A573-C2F43364D88C} = {2CE6F442-9AFE-41FF-8425-30BFC6D3A851}
+		{A424037F-4220-419A-8DB3-F945EF6CB512} = {2CE6F442-9AFE-41FF-8425-30BFC6D3A851}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1F8962E-CF26-41DE-8FFD-B7B92B21D8D2}

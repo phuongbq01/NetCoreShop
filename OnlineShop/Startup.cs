@@ -30,6 +30,8 @@ using Microsoft.AspNetCore.Authorization;
 using OnlineShop.Authorization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using OnlineShop.Extensions;
+using OnlineShop.Service.Dapper.Implementation;
+using OnlineShop.Service.Dapper.Interfaces;
 
 namespace OnlineShop
 {
@@ -178,6 +180,7 @@ namespace OnlineShop
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IPageService, PageService>();
+            services.AddTransient<IReportService, ReportService>();
 
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 

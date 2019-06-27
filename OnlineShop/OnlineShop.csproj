@@ -28,6 +28,7 @@
     <ProjectReference Include="..\OnlineShop.Data.EF\OnlineShop.Data.EF.csproj" />
     <ProjectReference Include="..\OnlineShop.Data\OnlineShop.Data.csproj" />
     <ProjectReference Include="..\OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj" />
+    <ProjectReference Include="..\OnlineShop.Service.Dapper\OnlineShop.Service.Dapper.csproj" />
     <ProjectReference Include="..\OnlineShop.Services\OnlineShop.Services.csproj" />
     <ProjectReference Include="..\OnlineShop.Utilities\OnlineShop.Utilities.csproj" />
   </ItemGroup>
