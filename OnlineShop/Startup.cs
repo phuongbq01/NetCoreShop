@@ -133,12 +133,12 @@ namespace OnlineShop
                 {
                     facebookOps.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOps.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                })
-                .AddGoogle(googleOps =>
-                 {
-                     googleOps.ClientId = Configuration["Authentication:Google:ClientId"];
-                     googleOps.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                 });
+                });
+                //.AddGoogle(googleOps =>
+                // {
+                //     googleOps.ClientId = Configuration["Authentication:Google:ClientId"];
+                //     googleOps.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                // });
 
 
 

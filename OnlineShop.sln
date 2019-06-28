@@ -23,7 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Services", "2-Services", "{2CE6F442-9AFE-41FF-8425-30BFC6D3A851}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Service.Dapper", "OnlineShop.Service.Dapper\OnlineShop.Service.Dapper.csproj", "{A424037F-4220-419A-8DB3-F945EF6CB512}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Service.Dapper", "OnlineShop.Service.Dapper\OnlineShop.Service.Dapper.csproj", "{A424037F-4220-419A-8DB3-F945EF6CB512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.WebApi", "OnlineShop.WebApi\OnlineShop.WebApi.csproj", "{4BCF1CA9-4980-4A89-837F-141D01AB509A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{A424037F-4220-419A-8DB3-F945EF6CB512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A424037F-4220-419A-8DB3-F945EF6CB512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A424037F-4220-419A-8DB3-F945EF6CB512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BCF1CA9-4980-4A89-837F-141D01AB509A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCF1CA9-4980-4A89-837F-141D01AB509A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCF1CA9-4980-4A89-837F-141D01AB509A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCF1CA9-4980-4A89-837F-141D01AB509A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{543F39AA-2165-471C-AA62-70121321757C} = {71FA6AFD-1332-4F5F-A6A2-9BF4A7E55AC6}
 		{06CA1B16-AC6F-4B5B-A573-C2F43364D88C} = {2CE6F442-9AFE-41FF-8425-30BFC6D3A851}
 		{A424037F-4220-419A-8DB3-F945EF6CB512} = {2CE6F442-9AFE-41FF-8425-30BFC6D3A851}
+		{4BCF1CA9-4980-4A89-837F-141D01AB509A} = {63B402E4-033E-4F01-A2B7-1278E392ABF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1F8962E-CF26-41DE-8FFD-B7B92B21D8D2}
