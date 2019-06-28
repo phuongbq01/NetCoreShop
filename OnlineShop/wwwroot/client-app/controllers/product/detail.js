@@ -20,7 +20,6 @@
                     size: sizeId
                 },
                 success: function () {
-                    alert(123);
                     Common.notify('Product was added successful', 'success');
                     loadHeaderCart();
                 }

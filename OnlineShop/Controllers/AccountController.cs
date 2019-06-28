@@ -17,6 +17,7 @@ using OnlineShop.Data.Entities;
 using OnlineShop.Data.Enums;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using OnlineShop.Extensions;
+using OnlineShop.Utilities.Constants;
 
 namespace OnlineShop.Controllers
 {
@@ -266,6 +267,8 @@ namespace OnlineShop.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+            var a = new List<ShoppingCartViewModel>();
+            HttpContext.Session.Set(CommonConstants.CartSession, a);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 

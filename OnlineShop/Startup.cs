@@ -32,6 +32,10 @@ using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using OnlineShop.Extensions;
 using OnlineShop.Service.Dapper.Implementation;
 using OnlineShop.Service.Dapper.Interfaces;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace OnlineShop
 {
@@ -50,7 +54,7 @@ namespace OnlineShop
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -123,9 +127,32 @@ namespace OnlineShop
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddSessionStateTempDataProvider()
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddSessionStateTempDataProvider()
+                .AddViewLocalization( 
+                    LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddLocalization( opts => { opts.ResourcesPath = "Resources"; });
+
+            services.Configure<RequestLocalizationOptions>(
+              opts =>
+              {
+                  var supportedCultures = new List<CultureInfo>
+                  {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("vi-VN")
+                  };
+
+                  opts.DefaultRequestCulture = new RequestCulture("en-US");
+                  // Formatting numbers, dates, etc.
+                  opts.SupportedCultures = supportedCultures;
+                  // UI strings that we have localized.
+                  opts.SupportedUICultures = supportedCultures;
+              });
 
             // Authentications
             services.AddAuthentication()
@@ -210,6 +237,9 @@ namespace OnlineShop
 
             app.UseAuthentication();
             app.UseSession();
+
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
 
             app.UseMvc(routes =>
             {
