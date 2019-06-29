@@ -116,9 +116,9 @@ namespace OnlineShop.Data.Entities
         public virtual ICollection<ProductTag> ProductTags { set; get; }
 
         public string SeoPageTitle { set; get; }
-
-        [Column(TypeName = "varchar(255)")]
+        
         [StringLength(255)]
+        [Column(TypeName = "varchar(255)")]
         public string SeoAlias { set; get; }
 
         [StringLength(255)]

@@ -9,7 +9,7 @@ namespace OnlineShop.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> AddAsync(AppUserViewModel userVm);
+        Task<bool> AddAsync(AnnouncementViewModel announcementVm, List<AnnouncementUserViewModel> announcementUsers, AppUserViewModel userVm);
 
         Task DeleteAsync(string id);
 

@@ -36,6 +36,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using OnlineShop.SignalR;
 
 namespace OnlineShop
 {
@@ -138,6 +139,17 @@ namespace OnlineShop
 
             services.AddLocalization( opts => { opts.ResourcesPath = "Resources"; });
 
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyMethod().AllowAnyHeader()
+                       .WithOrigins("http://localhost:55830")
+                       .AllowCredentials();
+            }));
+
+            //SignalR
+            services.AddSignalR(); 
+
             services.Configure<RequestLocalizationOptions>(
               opts =>
               {
@@ -194,6 +206,8 @@ namespace OnlineShop
             services.AddTransient<IContactRepository, ContactRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
             services.AddTransient<IPageRepository, PageRepository>();
+            services.AddTransient<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddTransient<IAnnouncementUserRepository, AnnouncementUserRepository>();
 
             // Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -208,6 +222,7 @@ namespace OnlineShop
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IPageService, PageService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IAnnouncementService, AnnouncementService>();
 
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
@@ -240,6 +255,12 @@ namespace OnlineShop
 
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
+
+            app.UseCors("CorsPolicy");
+
+            app.UseSignalR(routes => {
+                routes.MapHub<ShopHub>("/shopHub");
+            });
 
             app.UseMvc(routes =>
             {

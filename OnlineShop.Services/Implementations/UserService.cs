@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data.Entities;
 using OnlineShop.Data.Enums;
+using OnlineShop.Data.IRepositories;
+using OnlineShop.Infrastructure.Interfaces;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.ViewModels.system;
 using OnlineShop.Utilities.DTO;
@@ -18,14 +20,20 @@ namespace OnlineShop.Services.Implementations
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IAnnouncementRepository _announcementRepository;
+        private readonly IAnnouncementUserRepository _announcementUserRepository;
+        private readonly IUnitOfWork _unitOfWork;
         IMapper _mapper;
-        public UserService(UserManager<AppUser> userManager, IMapper mapper)
+        public UserService(UserManager<AppUser> userManager, IMapper mapper, IAnnouncementRepository announcementRepository, IAnnouncementUserRepository announcementUserRepository, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _announcementRepository = announcementRepository;
+            _announcementUserRepository = announcementUserRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AddAsync(AppUserViewModel userVm)
+        public async Task<bool> AddAsync(AnnouncementViewModel announcementVm, List<AnnouncementUserViewModel> announcementUsers, AppUserViewModel userVm)
         {
             var user = new AppUser()
             {
@@ -37,15 +45,25 @@ namespace OnlineShop.Services.Implementations
                 PhoneNumber = userVm.PhoneNumber,
                 Status = userVm.Status
             };
-            var result = await _userManager.CreateAsync(user, userVm.Password);
-            if (result.Succeeded && userVm.Roles.Count > 0)
-            {
-                var appUser = await _userManager.FindByNameAsync(user.UserName);
-                if (appUser != null)
-                    await _userManager.AddToRolesAsync(appUser, userVm.Roles);
+            //var result = await _userManager.CreateAsync(user, userVm.Password);
+            //if (result.Succeeded && userVm.Roles.Count > 0)
+            //{
+            //    var appUser = await _userManager.FindByNameAsync(user.UserName);
+            //    if (appUser != null)
+            //        await _userManager.AddToRolesAsync(appUser, userVm.Roles);
 
+            //}
+            //return true;
+            var result = await _userManager.CreateAsync(user);
+            var announcement = _mapper.Map<AnnouncementViewModel, Announcement>(announcementVm);
+            _announcementRepository.Add(announcement);
+            foreach (var userItem in announcementUsers)
+            {
+                var u = _mapper.Map<AnnouncementUserViewModel, AnnouncementUser>(userItem);
+                _announcementUserRepository.Add(u);
             }
-            return true;
+            _unitOfWork.Commit();
+            return result.Succeeded;
         }
 
         public async Task DeleteAsync(string id)

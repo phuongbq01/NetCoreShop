@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.SignalR;
 using OnlineShop.Authorization;
+using OnlineShop.Extensions;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.ViewModels.system;
+using OnlineShop.SignalR;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -17,11 +20,13 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         private readonly IRoleService _roleService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IHubContext<ShopHub> _hubContext;
 
-        public RoleController(IRoleService roleService, IAuthorizationService authorizationService)
+        public RoleController(IRoleService roleService, IAuthorizationService authorizationService, IHubContext<ShopHub> hubContext)
         {
             _roleService = roleService;
             _authorizationService = authorizationService;
+            _hubContext = hubContext;
         }
 
         public async Task<IActionResult> Index()
@@ -67,7 +72,23 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             if (!roleVm.Id.HasValue)
             {
-                await _roleService.AddAsync(roleVm);
+                var notificationId = Guid.NewGuid().ToString();
+                var announcement = new AnnouncementViewModel()
+                {
+                    Title = "Role created",
+                    DateCreated = DateTime.Now,
+                    Content = $"Role '{roleVm.Name}' has been created",
+                    Id = notificationId,
+                    UserId = User.GetUserId(),
+                    Status = Data.Enums.Status.Active
+                };
+                var announcementUsers = new List<AnnouncementUserViewModel>()
+                {
+                    new AnnouncementUserViewModel(){AnnouncementId = notificationId,HasRead = false,UserId = User.GetUserId()}
+                };
+                await _roleService.AddAsync(announcement, announcementUsers, roleVm);
+
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
             }
             else
             {

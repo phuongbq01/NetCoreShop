@@ -21,19 +21,24 @@ namespace OnlineShop.Services.Implementations
         private RoleManager<AppRole> _roleManager;
         private IFunctionRepository _functionRepository;
         private IPermissionRepository _permissionRepository;
+        private readonly IAnnouncementRepository _announcementRepository;
+        private readonly IAnnouncementUserRepository _announcementUserRepository;
         private IUnitOfWork _unitOfWork;
         IMapper _mapper;
 
         public RoleService(RoleManager<AppRole> roleManager, IUnitOfWork unitOfWork,
-         IFunctionRepository functionRepository, IPermissionRepository permissionRepository, IMapper mapper)
+         IFunctionRepository functionRepository, IPermissionRepository permissionRepository, IAnnouncementRepository announcementRepository, IAnnouncementUserRepository announcementUserRepository,  IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _roleManager = roleManager;
             _functionRepository = functionRepository;
             _permissionRepository = permissionRepository;
+            _announcementRepository = announcementRepository;
+            _announcementUserRepository = announcementUserRepository;
             _mapper = mapper;
         }
-        public async Task<bool> AddAsync(AppRoleViewModel roleVm)
+        public async Task<bool> AddAsync(AnnouncementViewModel announcementVm,
+            List<AnnouncementUserViewModel> announcementUsers, AppRoleViewModel roleVm)
         {
             var role = new AppRole()
             {
@@ -41,6 +46,14 @@ namespace OnlineShop.Services.Implementations
                 Description = roleVm.Description
             };
             var result = await _roleManager.CreateAsync(role);
+            var announcement = _mapper.Map<AnnouncementViewModel, Announcement>(announcementVm);
+            _announcementRepository.Add(announcement);
+            foreach (var userVm in announcementUsers)
+            {
+                var user = _mapper.Map<AnnouncementUserViewModel, AnnouncementUser>(userVm);
+                _announcementUserRepository.Add(user);
+            }
+            _unitOfWork.Commit();
             return result.Succeeded;
         }
 

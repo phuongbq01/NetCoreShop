@@ -13,5 +13,11 @@ namespace OnlineShop.Extensions
             var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == claimType);
             return (claim != null) ? claim.Value : string.Empty;
         }
+
+        public static Guid GetUserId(this ClaimsPrincipal claimsPrincipal)
+        {
+            var claim = ((ClaimsIdentity)claimsPrincipal.Identity).Claims.Single(x => x.Type == "UserId");
+            return Guid.Parse(claim.Value);
+        }
     }
 }

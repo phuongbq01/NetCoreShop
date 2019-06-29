@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.SignalR;
 using OnlineShop.Authorization;
+using OnlineShop.Data.Enums;
+using OnlineShop.Extensions;
 using OnlineShop.Services.Interfaces;
 using OnlineShop.Services.ViewModels.system;
+using OnlineShop.SignalR;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -17,11 +21,13 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         private readonly IUserService _userService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IHubContext<ShopHub> _hubContext;
 
-        public UserController(IUserService userService, IAuthorizationService authorizationService)
+        public UserController(IUserService userService, IAuthorizationService authorizationService, IHubContext<ShopHub> hubContext)
         {
             _userService = userService;
             _authorizationService = authorizationService;
+            _hubContext = hubContext;
         }
 
         public async Task<IActionResult> Index()
@@ -64,18 +70,30 @@ namespace OnlineShop.Areas.Admin.Controllers
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
-            else
+            if (userVm.Id == null)  // Thêm mới
             {
-                if (userVm.Id == null)
+                var notificationId = Guid.NewGuid().ToString();
+                var announcement = new AnnouncementViewModel()
                 {
-                    await _userService.AddAsync(userVm);
-                }
-                else
+                    Title = "Role created",
+                    DateCreated = DateTime.Now,
+                    Content = $"User '{userVm.FullName}' has been created",
+                    Id = notificationId,
+                    UserId = User.GetUserId()
+                };
+                var announcementUsers = new List<AnnouncementUserViewModel>()
                 {
-                    await _userService.UpdateAsync(userVm);
-                }
-                return new OkObjectResult(userVm);
+                    new AnnouncementUserViewModel(){AnnouncementId = notificationId,HasRead = false,UserId = User.GetUserId()}
+                };
+                await _userService.AddAsync(announcement, announcementUsers, userVm);
+
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", announcement);
             }
+            else    // Update User
+            {
+                await _userService.UpdateAsync(userVm);
+            }
+            return new OkObjectResult(userVm);
         }
 
         [HttpPost]

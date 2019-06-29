@@ -36,6 +36,8 @@ namespace OnlineShop.Services.AutoMapper
             CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
             CreateMap<Contact, ContactViewModel>().MaxDepth(2);
             CreateMap<Page, PageViewModel>().MaxDepth(2);
+            CreateMap<Announcement, AnnouncementViewModel>().MaxDepth(2);
+            CreateMap<AnnouncementUser, AnnouncementUserViewModel>().MaxDepth(2);
         }
     }
 }
