@@ -14,7 +14,7 @@
         });
 
         var contentString = $('#hidAddress').val();
-
+            
         var infowindow = new google.maps.InfoWindow({
             content: contentString
         });

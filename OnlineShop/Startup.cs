@@ -248,7 +248,7 @@ namespace OnlineShop
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            //app.UseMinResponse();
+            app.UseMinResponse();
 
             app.UseAuthentication();
             app.UseSession();

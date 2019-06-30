@@ -43,6 +43,7 @@
         //Grant permission
         $('body').on('click', '.btn-grant', function () {
             $('#hidRoleId').val($(this).data('id'));
+            // Sau khi load danh sách function xong mới fillPermision
             $.when(loadFunctionList())
                 .done(fillPermission($('#hidRoleId').val()));
             $('#modal-grantpermission').modal('show');

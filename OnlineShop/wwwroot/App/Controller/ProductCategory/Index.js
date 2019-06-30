@@ -195,6 +195,7 @@
         $('#ckStatusM').prop('checked', true);
         $('#ckShowHomeM').prop('checked', false);
     }
+
     function initTreeDropDownCategory(selectedId) {
         $.ajax({
             url: "/Admin/ProductCategory/GetAll",

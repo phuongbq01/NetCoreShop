@@ -18,14 +18,17 @@ namespace OnlineShop.Authorization
         {
             _roleService = roleService;
         }
+
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, OperationAuthorizationRequirement requirement, string resource)
         {
+            // Lấy ra danh sách Role
             var roles = ((ClaimsIdentity)context.User.Identity).Claims.FirstOrDefault(x => x.Type == CommonConstants.UserClaims.Roles);
             if (roles != null)
             {
                 var listRole = roles.Value.Split(";");
+                // Kiểm tra quyền
                 var hasPermission = await _roleService.CheckPermission(resource, requirement.Name, listRole);
-                if (hasPermission || listRole.Contains(CommonConstants.AppRole.AdminRole))
+                if (hasPermission || listRole.Contains(CommonConstants.AppRole.AdminRole))  // Nếu người dùng có quyền hoặc là Admin
                 {
                     context.Succeed(requirement);
                 }

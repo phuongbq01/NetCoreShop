@@ -19,6 +19,7 @@
             loadQuantities();
             $('#modal-quantity-management').modal('show');
         });
+
         $('body').on('click', '.btn-delete-quantity', function (e) {
             e.preventDefault();
             $(this).closest('tr').remove();
@@ -34,6 +35,7 @@
             });
             $('#table-quantity-content').append(render);
         });
+
         $("#btnSaveQuantity").on('click', function () {
             var quantityList = [];
             $.each($('#table-quantity-content').find('tr'), function (i, item) {
@@ -60,6 +62,7 @@
             });
         });
     }
+
     function loadQuantities() {
         $.ajax({
             url: '/admin/Product/GetQuantities',
@@ -84,6 +87,7 @@
             }
         });
     }
+
     function loadColors() {
         return $.ajax({
             type: "GET",

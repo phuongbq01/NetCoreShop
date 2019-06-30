@@ -209,6 +209,7 @@
         $('#txtConfirmPassword').prop('disabled', disabled);
 
     }
+
     function resetFormMaintainance() {
         disableFieldEdit(false);
         $('#hidId').val('');

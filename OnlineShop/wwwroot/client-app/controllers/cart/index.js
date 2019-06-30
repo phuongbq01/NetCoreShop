@@ -30,6 +30,7 @@
                 }
             });
         });
+
         $('body').on('keyup', '.txtQuantity', function (e) {
             e.preventDefault();
             var id = $(this).data('id');

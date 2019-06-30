@@ -4,6 +4,7 @@ using System.Text;
 
 namespace OnlineShop.Utilities.DTO
 {
+    // Chứa thông tin và kết quả trả về
     public class GenericResult
     {
         public GenericResult()

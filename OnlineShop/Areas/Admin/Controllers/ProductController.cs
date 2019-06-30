@@ -166,24 +166,26 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (files != null && files.Count > 0)
             {
                 var file = files[0];
+                // tên file
                 var filename = ContentDispositionHeaderValue
                                    .Parse(file.ContentDisposition)
                                    .FileName
                                    .Trim('"');
 
+                // đường dẫn chứa file
                 string folder = _hostingEnvironment.WebRootPath + $@"\uploaded\excels";
-                if (!Directory.Exists(folder))
+                if (!Directory.Exists(folder))  // kiểm tra sự tồn tại của đường dẫn
                 {
-                    Directory.CreateDirectory(folder);
+                    Directory.CreateDirectory(folder);  // Nếu chưa có sẽ tạo mới
                 }
-                string filePath = Path.Combine(folder, filename);
+                string filePath = Path.Combine(folder, filename);   // địa chỉ tuyệt đối của file sau khi upload
 
-                using (FileStream fs = System.IO.File.Create(filePath))
+                using (FileStream fs = System.IO.File.Create(filePath)) // upload
                 {
                     file.CopyTo(fs);
                     fs.Flush();
                 }
-                _productService.ImportExcel(filePath, categoryId);
+                _productService.ImportExcel(filePath, categoryId);  // Import
                 _productService.Save();
                 return new OkObjectResult(filePath);
             }
@@ -193,6 +195,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ExportExcel()
         {
+            // đường dẫn
             string sWebRootFolder = _hostingEnvironment.WebRootPath;
             string directory = Path.Combine(sWebRootFolder, "export-files");
             if (!Directory.Exists(directory))
@@ -201,14 +204,16 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             string sFileName = $"Product_{DateTime.Now:yyyyMMddhhmmss}.xlsx";
             string fileUrl = $"{Request.Scheme}://{Request.Host}/export-files/{sFileName}";
+
+            // file
             FileInfo file = new FileInfo(Path.Combine(directory, sFileName));
-            if (file.Exists)
+            if (file.Exists) // kiểm tra file
             {
-                file.Delete();
+                file.Delete();  // Nếu file đã tồn tại thì xóa và tạo lại
                 file = new FileInfo(Path.Combine(sWebRootFolder, sFileName));
             }
             var products = _productService.GetAll();
-            using (ExcelPackage package = new ExcelPackage(file))
+            using (ExcelPackage package = new ExcelPackage(file))   // Đọc file
             {
                 // add a new worksheet to the empty workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Products");

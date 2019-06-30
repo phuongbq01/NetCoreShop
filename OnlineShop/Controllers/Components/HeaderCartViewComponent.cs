@@ -14,7 +14,7 @@ namespace OnlineShop.Controllers.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var session = HttpContext.Session.GetString(CommonConstants.CartSession);
+            var session =  HttpContext.Session.GetString(CommonConstants.CartSession);
             var cart = new List<ShoppingCartViewModel>();
             if (session != null)
                 cart = JsonConvert.DeserializeObject<List<ShoppingCartViewModel>>(session);

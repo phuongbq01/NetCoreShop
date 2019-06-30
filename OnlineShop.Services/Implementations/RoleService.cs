@@ -57,6 +57,7 @@ namespace OnlineShop.Services.Implementations
             return result.Succeeded;
         }
 
+        // Kiểm tra người dùng với danh sách Roles này có được phép thực hiện action trong finction này không
         public Task<bool> CheckPermission(string functionId, string action, string[] roles)
         {
             var functions = _functionRepository.FindAll();

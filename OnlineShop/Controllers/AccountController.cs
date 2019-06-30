@@ -340,7 +340,8 @@ namespace OnlineShop.Controllers
                     Email = email,
                     FullName = model.FullName,
                     BirthDay = DateTime.Parse(model.DOB),
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    Status = Status.Active
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

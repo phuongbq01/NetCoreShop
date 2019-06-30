@@ -128,6 +128,7 @@
                 }
             });
         });
+
         $('body').on('click', '.btn-delete', function (e) {
             e.preventDefault();
             var that = $(this).data('id');
@@ -399,9 +400,11 @@
                     });
                 });
                 $('#lblTotalRecords').text(response.RowCount);
+
                 if (render != '') {
                     $('#tbl-content').html(render);
                 }
+
                 wrapPaging(response.RowCount, function () {
                     loadData();
                 }, isPageChanged);

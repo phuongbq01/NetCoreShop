@@ -325,6 +325,7 @@
         sizes += "</select>";
         return sizes;
     }
+
     function resetFormMaintainance() {
         $('#hidId').val(0);
         $('#txtCustomerName').val('');
@@ -387,7 +388,8 @@
                 console.log(status);
             }
         });
-    };
+    }
+
     function getPaymentMethodName(paymentMethod) {
         var method = $.grep(cachedObj.paymentMethods, function (element, index) {
             return element.Value == paymentMethod;
@@ -396,6 +398,7 @@
             return method[0].Name;
         else return '';
     }
+
     function getBillStatusName(status) {
         var status = $.grep(cachedObj.billStatuses, function (element, index) {
             return element.Value == status;
@@ -404,6 +407,7 @@
             return status[0].Name;
         else return '';
     }
+
     function wrapPaging(recordCount, callBack, changePageSize) {
         var totalsize = Math.ceil(recordCount / Common.configs.pageSize);
         //Unbind pagination if it existed or click change pagesize

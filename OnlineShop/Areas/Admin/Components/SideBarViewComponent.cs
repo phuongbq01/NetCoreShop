@@ -32,6 +32,7 @@ namespace OnlineShop.Areas.Admin.Components
             else
             {
                 //TODO: Get by permission
+                // Filter list Functions by Role
                 functions = await _functionService.GetAll(string.Empty);
             }
             return View(functions);
