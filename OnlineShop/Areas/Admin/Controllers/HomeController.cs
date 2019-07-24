@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Authorization;
 using OnlineShop.Extensions;
 using OnlineShop.Service.Dapper.Interfaces;
 
@@ -14,15 +15,20 @@ namespace OnlineShop.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         private readonly IReportService _reportService;
+        private readonly IAuthorizationService _authorizationService;
 
-        public HomeController(IReportService reportService)
+        public HomeController(IReportService reportService, IAuthorizationService authorizationService)
         {
             _reportService = reportService;
+            _authorizationService = authorizationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var email = User.GetSpecificClaim("Email");
+            var result = await _authorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Read);
+            if (result.Succeeded == false)  // Nếu không có quyền trả về trang Login
+                return new RedirectResult("/Admin/Login/Index");
+
             return View();
         }
 

@@ -105,7 +105,7 @@
                     $('#txtOriginalPriceM').val(data.OriginalPrice);
                     $('#txtPromotionPriceM').val(data.PromotionPrice);
 
-                    $('#txtImage').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.Image);
 
                     $('#txtTagM').val(data.Tags);
                     $('#txtMetakeywordM').val(data.SeoKeywords);
@@ -331,7 +331,7 @@
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
         initTreeDropDownCategory('');
-
+        $('#txtImage').val('');
         $('#txtDescM').val('');
         $('#txtUnitM').val('');
 
@@ -395,7 +395,7 @@
                         Image: item.Image == null ? '<img src="/admin-side/images/user.png" width=25' : '<img src="' + item.Image + '" width=25 />',
                         CategoryName: item.ProductCategory.Name,
                         Price: Common.formatNumber(item.Price, 0),
-                        CreatedDate: Common.dateTimeFormatJson(item.DateCreated),
+                        DateCreated: item.DateCreated,/*Common.dateTimeFormatJson(item.DateCreated),*/
                         Status: Common.getStatus(item.Status)
                     });
                 });

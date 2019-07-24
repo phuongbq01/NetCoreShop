@@ -247,6 +247,7 @@ namespace OnlineShop.Services.Implementations
                 .ToList();
         }
 
+        // sản phẩm cùng loại
         public List<ProductViewModel> GetRelatedProducts(int id, int top)
         {
             var product = _productRepository.FindById(id);
@@ -258,6 +259,7 @@ namespace OnlineShop.Services.Implementations
             .ToList();
         }
 
+        // Danh sách sản phẩm giảm giá
         public List<ProductViewModel> GetUpsellProducts(int top)
         {
             return _productRepository.FindAll(x => x.PromotionPrice != null)

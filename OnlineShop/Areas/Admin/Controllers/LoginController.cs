@@ -17,7 +17,7 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ILogger _logger;
+        private readonly ILogger<LoginController> _logger;
 
 
         public LoginController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager

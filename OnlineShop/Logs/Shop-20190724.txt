@@ -1,0 +1,372 @@
+2019-07-24T09:59:23.3769940+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/   (ca22a1cb)
+2019-07-24T09:59:23.6556947+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Controllers.HomeController.Index (OnlineShop)"' (500cc934)
+2019-07-24T09:59:23.6784356+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing controller action with signature "Microsoft.AspNetCore.Mvc.IActionResult Index()" on controller "OnlineShop.Controllers.HomeController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:23.6992995+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Controllers.HomeController.Index (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:23.7192118+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Entity Framework Core "2.2.4-servicing-10062" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "MigrationsAssembly=OnlineShop.Data.EF " (9958f5bb)
+2019-07-24T09:59:23.7809600+07:00 800000af-0003-c400-b63f-84710c7967bb [WRN] The Include operation for navigation '"[c].Products"' is unnecessary and was ignored because the navigation is not reachable in the final query results. See https://go.microsoft.com/fwlink/?linkid=850303 for more information. (10efaee6)
+2019-07-24T09:59:23.8689567+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("8"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [c].[DateCreated], [c].[DateModified], [c].[Description], [c].[HomeFlag], [c].[HomeOrder], [c].[Id], [c].[Image], [c].[Name], [c].[ParentId], [c].[SeoAlias], [c].[SeoDescription], [c].[SeoKeywords], [c].[SeoPageTitle], [c].[SortOrder], [c].[Status]
+FROM [ProductCategories] AS [c]
+WHERE [c].[HomeFlag] = 1
+ORDER BY [c].[HomeOrder], [c].[Id]" (0723d8ff)
+2019-07-24T09:59:23.8891855+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("6"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[HomeOrder], [t].[Id], [c.Products].[CategoryId], [c.Products].[Content], [c.Products].[DateCreated], [c.Products].[DateModified], [c.Products].[Description], [c.Products].[HomeFlag], [c.Products].[HotFlag], [c.Products].[Id] AS [Id0], [c.Products].[Image], [c.Products].[Name], [c.Products].[OriginalPrice], [c.Products].[Price], [c.Products].[PromotionPrice], [c.Products].[SeoAlias], [c.Products].[SeoDescription], [c.Products].[SeoKeywords], [c.Products].[SeoPageTitle], [c.Products].[Status], [c.Products].[Tags], [c.Products].[Unit], [c.Products].[ViewCount]
+FROM [Products] AS [c.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [c0].[HomeOrder], [c0].[Id]
+    FROM [ProductCategories] AS [c0]
+    WHERE [c0].[HomeFlag] = 1
+    ORDER BY [c0].[HomeOrder], [c0].[Id]
+) AS [t] ON [c.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[HomeOrder], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:23.9652836+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("6"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[CategoryId], [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[OriginalPrice], [x].[Price], CASE
+    WHEN [x].[CategoryId] IS NULL
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END, [x.ProductCategory].[DateCreated] AS [DateCreated0], [x.ProductCategory].[DateModified] AS [DateModified0], [x.ProductCategory].[Description] AS [Description0], [x.ProductCategory].[HomeFlag] AS [HomeFlag0], [x.ProductCategory].[HomeOrder], [x.ProductCategory].[Image] AS [Image0], [x.ProductCategory].[Name] AS [Name0], [x.ProductCategory].[ParentId], [x.ProductCategory].[SeoAlias], [x.ProductCategory].[SeoDescription], [x.ProductCategory].[SeoKeywords], [x.ProductCategory].[SeoPageTitle], [x.ProductCategory].[SortOrder], [x.ProductCategory].[Status], [x].[PromotionPrice], [x].[SeoAlias] AS [SeoAlias0], [x].[SeoDescription] AS [SeoDescription0], [x].[SeoKeywords] AS [SeoKeywords0], [x].[SeoPageTitle] AS [SeoPageTitle0], [x].[Status] AS [Status0], [x].[Tags], [x].[Unit], [x].[ViewCount], [x.ProductCategory].[Id]
+FROM [Products] AS [x]
+INNER JOIN [ProductCategories] AS [x.ProductCategory] ON [x].[CategoryId] = [x.ProductCategory].[Id]
+WHERE ([x].[Status] = 1) AND ([x].[HotFlag] = 1)
+ORDER BY [x].[DateCreated] DESC, [x].[Id], [x.ProductCategory].[Id]" (0723d8ff)
+2019-07-24T09:59:23.9831098+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[DateCreated], [t].[Id], [t].[Id0], [x.ProductCategory.Products].[CategoryId], [x.ProductCategory.Products].[Content], [x.ProductCategory.Products].[DateCreated] AS [DateCreated0], [x.ProductCategory.Products].[DateModified], [x.ProductCategory.Products].[Description], [x.ProductCategory.Products].[HomeFlag], [x.ProductCategory.Products].[HotFlag], [x.ProductCategory.Products].[Id] AS [Id1], [x.ProductCategory.Products].[Image], [x.ProductCategory.Products].[Name], [x.ProductCategory.Products].[OriginalPrice], [x.ProductCategory.Products].[Price], [x.ProductCategory.Products].[PromotionPrice], [x.ProductCategory.Products].[SeoAlias], [x.ProductCategory.Products].[SeoDescription], [x.ProductCategory.Products].[SeoKeywords], [x.ProductCategory.Products].[SeoPageTitle], [x.ProductCategory.Products].[Status], [x.ProductCategory.Products].[Tags], [x.ProductCategory.Products].[Unit], [x.ProductCategory.Products].[ViewCount]
+FROM [Products] AS [x.ProductCategory.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [x0].[DateCreated], [x0].[Id], [x.ProductCategory0].[Id] AS [Id0]
+    FROM [Products] AS [x0]
+    INNER JOIN [ProductCategories] AS [x.ProductCategory0] ON [x0].[CategoryId] = [x.ProductCategory0].[Id]
+    WHERE ([x0].[Status] = 1) AND ([x0].[HotFlag] = 1)
+    ORDER BY [x0].[DateCreated] DESC, [x0].[Id], [x.ProductCategory0].[Id]
+) AS [t] ON [x.ProductCategory.Products].[CategoryId] = [t].[Id0]
+ORDER BY [t].[DateCreated] DESC, [t].[Id], [t].[Id0]" (0723d8ff)
+2019-07-24T09:59:24.0263889+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[CategoryId], [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[OriginalPrice], [x].[Price], CASE
+    WHEN [x].[CategoryId] IS NULL
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END, [x.ProductCategory].[DateCreated] AS [DateCreated0], [x.ProductCategory].[DateModified] AS [DateModified0], [x.ProductCategory].[Description] AS [Description0], [x.ProductCategory].[HomeFlag] AS [HomeFlag0], [x.ProductCategory].[HomeOrder], [x.ProductCategory].[Image] AS [Image0], [x.ProductCategory].[Name] AS [Name0], [x.ProductCategory].[ParentId], [x.ProductCategory].[SeoAlias], [x.ProductCategory].[SeoDescription], [x.ProductCategory].[SeoKeywords], [x.ProductCategory].[SeoPageTitle], [x.ProductCategory].[SortOrder], [x.ProductCategory].[Status], [x].[PromotionPrice], [x].[SeoAlias] AS [SeoAlias0], [x].[SeoDescription] AS [SeoDescription0], [x].[SeoKeywords] AS [SeoKeywords0], [x].[SeoPageTitle] AS [SeoPageTitle0], [x].[Status] AS [Status0], [x].[Tags], [x].[Unit], [x].[ViewCount], [x.ProductCategory].[Id]
+FROM [Products] AS [x]
+INNER JOIN [ProductCategories] AS [x.ProductCategory] ON [x].[CategoryId] = [x.ProductCategory].[Id]
+WHERE [x].[Status] = 1
+ORDER BY [x].[DateCreated] DESC, [x].[Id], [x.ProductCategory].[Id]" (0723d8ff)
+2019-07-24T09:59:24.0345751+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("4"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[DateCreated], [t].[Id], [t].[Id0], [x.ProductCategory.Products].[CategoryId], [x.ProductCategory.Products].[Content], [x.ProductCategory.Products].[DateCreated] AS [DateCreated0], [x.ProductCategory.Products].[DateModified], [x.ProductCategory.Products].[Description], [x.ProductCategory.Products].[HomeFlag], [x.ProductCategory.Products].[HotFlag], [x.ProductCategory.Products].[Id] AS [Id1], [x.ProductCategory.Products].[Image], [x.ProductCategory.Products].[Name], [x.ProductCategory.Products].[OriginalPrice], [x.ProductCategory.Products].[Price], [x.ProductCategory.Products].[PromotionPrice], [x.ProductCategory.Products].[SeoAlias], [x.ProductCategory.Products].[SeoDescription], [x.ProductCategory.Products].[SeoKeywords], [x.ProductCategory.Products].[SeoPageTitle], [x.ProductCategory.Products].[Status], [x.ProductCategory.Products].[Tags], [x.ProductCategory.Products].[Unit], [x.ProductCategory.Products].[ViewCount]
+FROM [Products] AS [x.ProductCategory.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [x0].[DateCreated], [x0].[Id], [x.ProductCategory0].[Id] AS [Id0]
+    FROM [Products] AS [x0]
+    INNER JOIN [ProductCategories] AS [x.ProductCategory0] ON [x0].[CategoryId] = [x.ProductCategory0].[Id]
+    WHERE [x0].[Status] = 1
+    ORDER BY [x0].[DateCreated] DESC, [x0].[Id], [x.ProductCategory0].[Id]
+) AS [t] ON [x.ProductCategory.Products].[CategoryId] = [t].[Id0]
+ORDER BY [t].[DateCreated] DESC, [t].[Id], [t].[Id0]" (0723d8ff)
+2019-07-24T09:59:24.0718118+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[Status], [x].[Tags], [x].[ViewCount]
+FROM [Blogs] AS [x]
+WHERE [x].[Status] = 1
+ORDER BY [x].[DateCreated] DESC, [x].[Id]" (0723d8ff)
+2019-07-24T09:59:24.0956039+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("3"ms) [Parameters=["@__groupAlias_0='?' (Size = 25)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Content], [x].[Description], [x].[DisplayOrder], [x].[GroupAlias], [x].[Id], [x].[Image], [x].[Name], [x].[Status], [x].[Url]
+FROM [Slides] AS [x]
+WHERE ([x].[Status] = 1) AND ([x].[GroupAlias] = @__groupAlias_0)" (0723d8ff)
+2019-07-24T09:59:24.1074372+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Controllers.HomeController.Index (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 399.921ms. (50a9e262)
+2019-07-24T09:59:24.1615046+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executing ViewResult, running view "Index". (c83d0e25)
+2019-07-24T09:59:24.4243504+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HomeOrder], [x].[Id], [x].[Image], [x].[Name], [x].[ParentId], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[SortOrder], [x].[Status]
+FROM [ProductCategories] AS [x]
+ORDER BY [x].[ParentId], [x].[Id]" (0723d8ff)
+2019-07-24T09:59:24.4362517+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[ParentId], [t].[Id], [x.Products].[CategoryId], [x.Products].[Content], [x.Products].[DateCreated], [x.Products].[DateModified], [x.Products].[Description], [x.Products].[HomeFlag], [x.Products].[HotFlag], [x.Products].[Id] AS [Id0], [x.Products].[Image], [x.Products].[Name], [x.Products].[OriginalPrice], [x.Products].[Price], [x.Products].[PromotionPrice], [x.Products].[SeoAlias], [x.Products].[SeoDescription], [x.Products].[SeoKeywords], [x.Products].[SeoPageTitle], [x.Products].[Status], [x.Products].[Tags], [x.Products].[Unit], [x.Products].[ViewCount]
+FROM [Products] AS [x.Products]
+INNER JOIN (
+    SELECT [x0].[ParentId], [x0].[Id]
+    FROM [ProductCategories] AS [x0]
+) AS [t] ON [x.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[ParentId], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:24.6706934+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HomeOrder], [x].[Id], [x].[Image], [x].[Name], [x].[ParentId], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[SortOrder], [x].[Status]
+FROM [ProductCategories] AS [x]
+ORDER BY [x].[ParentId], [x].[Id]" (0723d8ff)
+2019-07-24T09:59:24.6749636+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[ParentId], [t].[Id], [x.Products].[CategoryId], [x.Products].[Content], [x.Products].[DateCreated], [x.Products].[DateModified], [x.Products].[Description], [x.Products].[HomeFlag], [x.Products].[HotFlag], [x.Products].[Id] AS [Id0], [x.Products].[Image], [x.Products].[Name], [x.Products].[OriginalPrice], [x.Products].[Price], [x.Products].[PromotionPrice], [x.Products].[SeoAlias], [x.Products].[SeoDescription], [x.Products].[SeoKeywords], [x.Products].[SeoPageTitle], [x.Products].[Status], [x.Products].[Tags], [x.Products].[Unit], [x.Products].[ViewCount]
+FROM [Products] AS [x.Products]
+INNER JOIN (
+    SELECT [x0].[ParentId], [x0].[Id]
+    FROM [ProductCategories] AS [x0]
+) AS [t] ON [x.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[ParentId], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:24.6990806+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("0"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HomeOrder], [x].[Id], [x].[Image], [x].[Name], [x].[ParentId], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[SortOrder], [x].[Status]
+FROM [ProductCategories] AS [x]
+ORDER BY [x].[ParentId], [x].[Id]" (0723d8ff)
+2019-07-24T09:59:24.7020842+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[ParentId], [t].[Id], [x.Products].[CategoryId], [x.Products].[Content], [x.Products].[DateCreated], [x.Products].[DateModified], [x.Products].[Description], [x.Products].[HomeFlag], [x.Products].[HotFlag], [x.Products].[Id] AS [Id0], [x.Products].[Image], [x.Products].[Name], [x.Products].[OriginalPrice], [x.Products].[Price], [x.Products].[PromotionPrice], [x.Products].[SeoAlias], [x.Products].[SeoDescription], [x.Products].[SeoKeywords], [x.Products].[SeoPageTitle], [x.Products].[Status], [x.Products].[Tags], [x.Products].[Unit], [x.Products].[ViewCount]
+FROM [Products] AS [x.Products]
+INNER JOIN (
+    SELECT [x0].[ParentId], [x0].[Id]
+    FROM [ProductCategories] AS [x0]
+) AS [t] ON [x.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[ParentId], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:24.8107098+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed ViewResult - view "Index" executed in 685.2544ms. (f66409e9)
+2019-07-24T09:59:24.8136643+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed action "OnlineShop.Controllers.HomeController.Index (OnlineShop)" in 1132.6374ms (afa2e885)
+2019-07-24T09:59:24.8157061+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Controllers.HomeController.Index (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:25.6864873+07:00 800000af-0003-c400-b63f-84710c7967bb [INF] Request finished in 2303.7ms 200 text/html; charset=utf-8 (791a596a)
+2019-07-24T09:59:26.0278287+07:00 80000202-0000-c900-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/client-side/images/onlineshop.png   (ca22a1cb)
+2019-07-24T09:59:26.0354573+07:00 800000dc-0000-c000-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/client-app/shared/localize/resource.vi-VN.js?v=4AzbwnYYAvcE4ANmJHLHPYfnTP0pmczNaOQjsQ6-tHg   (ca22a1cb)
+2019-07-24T09:59:26.0462261+07:00 80000202-0000-c900-b63f-84710c7967bb [INF] The file "/client-side/images/onlineshop.png" was not modified (f1f8d725)
+2019-07-24T09:59:26.0634543+07:00 80000202-0000-c900-b63f-84710c7967bb [INF] Request finished in 59.6529ms 304 image/png (791a596a)
+2019-07-24T09:59:26.0671712+07:00 800000dc-0000-c000-b63f-84710c7967bb [INF] Sending file. Request path: '"/client-app/shared/localize/resource.vi-VN.js"'. Physical path: '"E:\New folder\ASP.NET Core\Projects\OnlineShop\OnlineShop\wwwroot\client-app\shared\localize\resource.vi-VN.js"' (27b0a520)
+2019-07-24T09:59:26.0742942+07:00 800000dc-0000-c000-b63f-84710c7967bb [INF] Request finished in 42.6508ms 200 application/javascript (791a596a)
+2019-07-24T09:59:26.6620627+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/   (ca22a1cb)
+2019-07-24T09:59:26.6722828+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Controllers.HomeController.Index (OnlineShop)"' (500cc934)
+2019-07-24T09:59:26.6790847+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Route matched with "{action = \"Index\", controller = \"Home\", area = \"\", page = \"\"}". Executing controller action with signature "Microsoft.AspNetCore.Mvc.IActionResult Index()" on controller "OnlineShop.Controllers.HomeController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:26.7036178+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Controllers.HomeController.Index (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:26.7154613+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Entity Framework Core "2.2.4-servicing-10062" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "MigrationsAssembly=OnlineShop.Data.EF " (9958f5bb)
+2019-07-24T09:59:26.7327217+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("4"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [c].[DateCreated], [c].[DateModified], [c].[Description], [c].[HomeFlag], [c].[HomeOrder], [c].[Id], [c].[Image], [c].[Name], [c].[ParentId], [c].[SeoAlias], [c].[SeoDescription], [c].[SeoKeywords], [c].[SeoPageTitle], [c].[SortOrder], [c].[Status]
+FROM [ProductCategories] AS [c]
+WHERE [c].[HomeFlag] = 1
+ORDER BY [c].[HomeOrder], [c].[Id]" (0723d8ff)
+2019-07-24T09:59:26.7558238+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("6"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[HomeOrder], [t].[Id], [c.Products].[CategoryId], [c.Products].[Content], [c.Products].[DateCreated], [c.Products].[DateModified], [c.Products].[Description], [c.Products].[HomeFlag], [c.Products].[HotFlag], [c.Products].[Id] AS [Id0], [c.Products].[Image], [c.Products].[Name], [c.Products].[OriginalPrice], [c.Products].[Price], [c.Products].[PromotionPrice], [c.Products].[SeoAlias], [c.Products].[SeoDescription], [c.Products].[SeoKeywords], [c.Products].[SeoPageTitle], [c.Products].[Status], [c.Products].[Tags], [c.Products].[Unit], [c.Products].[ViewCount]
+FROM [Products] AS [c.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [c0].[HomeOrder], [c0].[Id]
+    FROM [ProductCategories] AS [c0]
+    WHERE [c0].[HomeFlag] = 1
+    ORDER BY [c0].[HomeOrder], [c0].[Id]
+) AS [t] ON [c.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[HomeOrder], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:26.7769738+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[CategoryId], [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[OriginalPrice], [x].[Price], CASE
+    WHEN [x].[CategoryId] IS NULL
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END, [x.ProductCategory].[DateCreated] AS [DateCreated0], [x.ProductCategory].[DateModified] AS [DateModified0], [x.ProductCategory].[Description] AS [Description0], [x.ProductCategory].[HomeFlag] AS [HomeFlag0], [x.ProductCategory].[HomeOrder], [x.ProductCategory].[Image] AS [Image0], [x.ProductCategory].[Name] AS [Name0], [x.ProductCategory].[ParentId], [x.ProductCategory].[SeoAlias], [x.ProductCategory].[SeoDescription], [x.ProductCategory].[SeoKeywords], [x.ProductCategory].[SeoPageTitle], [x.ProductCategory].[SortOrder], [x.ProductCategory].[Status], [x].[PromotionPrice], [x].[SeoAlias] AS [SeoAlias0], [x].[SeoDescription] AS [SeoDescription0], [x].[SeoKeywords] AS [SeoKeywords0], [x].[SeoPageTitle] AS [SeoPageTitle0], [x].[Status] AS [Status0], [x].[Tags], [x].[Unit], [x].[ViewCount], [x.ProductCategory].[Id]
+FROM [Products] AS [x]
+INNER JOIN [ProductCategories] AS [x.ProductCategory] ON [x].[CategoryId] = [x.ProductCategory].[Id]
+WHERE ([x].[Status] = 1) AND ([x].[HotFlag] = 1)
+ORDER BY [x].[DateCreated] DESC, [x].[Id], [x.ProductCategory].[Id]" (0723d8ff)
+2019-07-24T09:59:26.8859259+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[DateCreated], [t].[Id], [t].[Id0], [x.ProductCategory.Products].[CategoryId], [x.ProductCategory.Products].[Content], [x.ProductCategory.Products].[DateCreated] AS [DateCreated0], [x.ProductCategory.Products].[DateModified], [x.ProductCategory.Products].[Description], [x.ProductCategory.Products].[HomeFlag], [x.ProductCategory.Products].[HotFlag], [x.ProductCategory.Products].[Id] AS [Id1], [x.ProductCategory.Products].[Image], [x.ProductCategory.Products].[Name], [x.ProductCategory.Products].[OriginalPrice], [x.ProductCategory.Products].[Price], [x.ProductCategory.Products].[PromotionPrice], [x.ProductCategory.Products].[SeoAlias], [x.ProductCategory.Products].[SeoDescription], [x.ProductCategory.Products].[SeoKeywords], [x.ProductCategory.Products].[SeoPageTitle], [x.ProductCategory.Products].[Status], [x.ProductCategory.Products].[Tags], [x.ProductCategory.Products].[Unit], [x.ProductCategory.Products].[ViewCount]
+FROM [Products] AS [x.ProductCategory.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [x0].[DateCreated], [x0].[Id], [x.ProductCategory0].[Id] AS [Id0]
+    FROM [Products] AS [x0]
+    INNER JOIN [ProductCategories] AS [x.ProductCategory0] ON [x0].[CategoryId] = [x.ProductCategory0].[Id]
+    WHERE ([x0].[Status] = 1) AND ([x0].[HotFlag] = 1)
+    ORDER BY [x0].[DateCreated] DESC, [x0].[Id], [x.ProductCategory0].[Id]
+) AS [t] ON [x.ProductCategory.Products].[CategoryId] = [t].[Id0]
+ORDER BY [t].[DateCreated] DESC, [t].[Id], [t].[Id0]" (0723d8ff)
+2019-07-24T09:59:26.9117874+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("15"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[CategoryId], [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[OriginalPrice], [x].[Price], CASE
+    WHEN [x].[CategoryId] IS NULL
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END, [x.ProductCategory].[DateCreated] AS [DateCreated0], [x.ProductCategory].[DateModified] AS [DateModified0], [x.ProductCategory].[Description] AS [Description0], [x.ProductCategory].[HomeFlag] AS [HomeFlag0], [x.ProductCategory].[HomeOrder], [x.ProductCategory].[Image] AS [Image0], [x.ProductCategory].[Name] AS [Name0], [x.ProductCategory].[ParentId], [x.ProductCategory].[SeoAlias], [x.ProductCategory].[SeoDescription], [x.ProductCategory].[SeoKeywords], [x.ProductCategory].[SeoPageTitle], [x.ProductCategory].[SortOrder], [x.ProductCategory].[Status], [x].[PromotionPrice], [x].[SeoAlias] AS [SeoAlias0], [x].[SeoDescription] AS [SeoDescription0], [x].[SeoKeywords] AS [SeoKeywords0], [x].[SeoPageTitle] AS [SeoPageTitle0], [x].[Status] AS [Status0], [x].[Tags], [x].[Unit], [x].[ViewCount], [x.ProductCategory].[Id]
+FROM [Products] AS [x]
+INNER JOIN [ProductCategories] AS [x.ProductCategory] ON [x].[CategoryId] = [x.ProductCategory].[Id]
+WHERE [x].[Status] = 1
+ORDER BY [x].[DateCreated] DESC, [x].[Id], [x.ProductCategory].[Id]" (0723d8ff)
+2019-07-24T09:59:26.9331055+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[DateCreated], [t].[Id], [t].[Id0], [x.ProductCategory.Products].[CategoryId], [x.ProductCategory.Products].[Content], [x.ProductCategory.Products].[DateCreated] AS [DateCreated0], [x.ProductCategory.Products].[DateModified], [x.ProductCategory.Products].[Description], [x.ProductCategory.Products].[HomeFlag], [x.ProductCategory.Products].[HotFlag], [x.ProductCategory.Products].[Id] AS [Id1], [x.ProductCategory.Products].[Image], [x.ProductCategory.Products].[Name], [x.ProductCategory.Products].[OriginalPrice], [x.ProductCategory.Products].[Price], [x.ProductCategory.Products].[PromotionPrice], [x.ProductCategory.Products].[SeoAlias], [x.ProductCategory.Products].[SeoDescription], [x.ProductCategory.Products].[SeoKeywords], [x.ProductCategory.Products].[SeoPageTitle], [x.ProductCategory.Products].[Status], [x.ProductCategory.Products].[Tags], [x.ProductCategory.Products].[Unit], [x.ProductCategory.Products].[ViewCount]
+FROM [Products] AS [x.ProductCategory.Products]
+INNER JOIN (
+    SELECT TOP(@__p_0) [x0].[DateCreated], [x0].[Id], [x.ProductCategory0].[Id] AS [Id0]
+    FROM [Products] AS [x0]
+    INNER JOIN [ProductCategories] AS [x.ProductCategory0] ON [x0].[CategoryId] = [x.ProductCategory0].[Id]
+    WHERE [x0].[Status] = 1
+    ORDER BY [x0].[DateCreated] DESC, [x0].[Id], [x.ProductCategory0].[Id]
+) AS [t] ON [x.ProductCategory.Products].[CategoryId] = [t].[Id0]
+ORDER BY [t].[DateCreated] DESC, [t].[Id], [t].[Id0]" (0723d8ff)
+2019-07-24T09:59:26.9773171+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("18"ms) [Parameters=["@__p_0='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(@__p_0) [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HotFlag], [x].[Id], [x].[Image], [x].[Name], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[Status], [x].[Tags], [x].[ViewCount]
+FROM [Blogs] AS [x]
+WHERE [x].[Status] = 1
+ORDER BY [x].[DateCreated] DESC, [x].[Id]" (0723d8ff)
+2019-07-24T09:59:26.9912610+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__groupAlias_0='?' (Size = 25)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Content], [x].[Description], [x].[DisplayOrder], [x].[GroupAlias], [x].[Id], [x].[Image], [x].[Name], [x].[Status], [x].[Url]
+FROM [Slides] AS [x]
+WHERE ([x].[Status] = 1) AND ([x].[GroupAlias] = @__groupAlias_0)" (0723d8ff)
+2019-07-24T09:59:26.9986789+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Controllers.HomeController.Index (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 287.8429ms. (50a9e262)
+2019-07-24T09:59:27.0027384+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executing ViewResult, running view "Index". (c83d0e25)
+2019-07-24T09:59:27.0222599+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HomeOrder], [x].[Id], [x].[Image], [x].[Name], [x].[ParentId], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[SortOrder], [x].[Status]
+FROM [ProductCategories] AS [x]
+ORDER BY [x].[ParentId], [x].[Id]" (0723d8ff)
+2019-07-24T09:59:27.0423148+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("4"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[ParentId], [t].[Id], [x.Products].[CategoryId], [x.Products].[Content], [x.Products].[DateCreated], [x.Products].[DateModified], [x.Products].[Description], [x.Products].[HomeFlag], [x.Products].[HotFlag], [x.Products].[Id] AS [Id0], [x.Products].[Image], [x.Products].[Name], [x.Products].[OriginalPrice], [x.Products].[Price], [x.Products].[PromotionPrice], [x.Products].[SeoAlias], [x.Products].[SeoDescription], [x.Products].[SeoKeywords], [x.Products].[SeoPageTitle], [x.Products].[Status], [x.Products].[Tags], [x.Products].[Unit], [x.Products].[ViewCount]
+FROM [Products] AS [x.Products]
+INNER JOIN (
+    SELECT [x0].[ParentId], [x0].[Id]
+    FROM [ProductCategories] AS [x0]
+) AS [t] ON [x.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[ParentId], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:27.0583301+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[DateCreated], [x].[DateModified], [x].[Description], [x].[HomeFlag], [x].[HomeOrder], [x].[Id], [x].[Image], [x].[Name], [x].[ParentId], [x].[SeoAlias], [x].[SeoDescription], [x].[SeoKeywords], [x].[SeoPageTitle], [x].[SortOrder], [x].[Status]
+FROM [ProductCategories] AS [x]
+ORDER BY [x].[ParentId], [x].[Id]" (0723d8ff)
+2019-07-24T09:59:27.0651162+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [t].[ParentId], [t].[Id], [x.Products].[CategoryId], [x.Products].[Content], [x.Products].[DateCreated], [x.Products].[DateModified], [x.Products].[Description], [x.Products].[HomeFlag], [x.Products].[HotFlag], [x.Products].[Id] AS [Id0], [x.Products].[Image], [x.Products].[Name], [x.Products].[OriginalPrice], [x.Products].[Price], [x.Products].[PromotionPrice], [x.Products].[SeoAlias], [x.Products].[SeoDescription], [x.Products].[SeoKeywords], [x.Products].[SeoPageTitle], [x.Products].[Status], [x.Products].[Tags], [x.Products].[Unit], [x.Products].[ViewCount]
+FROM [Products] AS [x.Products]
+INNER JOIN (
+    SELECT [x0].[ParentId], [x0].[Id]
+    FROM [ProductCategories] AS [x0]
+) AS [t] ON [x.Products].[CategoryId] = [t].[Id]
+ORDER BY [t].[ParentId], [t].[Id]" (0723d8ff)
+2019-07-24T09:59:27.0703576+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed ViewResult - view "Index" executed in 68.1238ms. (f66409e9)
+2019-07-24T09:59:27.0791341+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed action "OnlineShop.Controllers.HomeController.Index (OnlineShop)" in 391.6915ms (afa2e885)
+2019-07-24T09:59:27.0846841+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Controllers.HomeController.Index (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:27.1433030+07:00 80000238-0001-e300-b63f-84710c7967bb [INF] Request finished in 475.1618ms 200 text/html; charset=utf-8 (791a596a)
+2019-07-24T09:59:27.2952807+07:00  [ERR] Connection ID ""16357073852515222071"", Request ID ""80000238-0001-e300-b63f-84710c7967bb"": An unhandled exception was thrown by the application. (bf316047)
+System.ObjectDisposedException: The CancellationTokenSource has been disposed.
+   at System.Threading.CancellationTokenSource.ThrowObjectDisposedException()
+   at System.Threading.CancellationTokenSource.Cancel()
+   at Microsoft.AspNetCore.Server.IIS.Core.IISHttpContext.<>c__DisplayClass314_0.<AbortIO>b__0(Object t)
+2019-07-24T09:59:30.2633388+07:00 800000de-0000-c000-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/favicon.ico   (ca22a1cb)
+2019-07-24T09:59:30.3133209+07:00 800000de-0000-c000-b63f-84710c7967bb [INF] Sending file. Request path: '"/favicon.ico"'. Physical path: '"E:\New folder\ASP.NET Core\Projects\OnlineShop\OnlineShop\wwwroot\favicon.ico"' (27b0a520)
+2019-07-24T09:59:30.3659597+07:00 800000de-0000-c000-b63f-84710c7967bb [INF] Request finished in 75.8891ms 200 image/x-icon (791a596a)
+2019-07-24T09:59:31.3572221+07:00 8000023a-0001-e300-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/client-side/css/bootstrap.min.css.map   (ca22a1cb)
+2019-07-24T09:59:31.4012065+07:00 8000023a-0001-e300-b63f-84710c7967bb [INF] Request finished in 72.097ms 404  (791a596a)
+2019-07-24T09:59:38.3596107+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/Admin/Login   (ca22a1cb)
+2019-07-24T09:59:38.3726233+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Areas.Admin.Controllers.LoginController.Index (OnlineShop)"' (500cc934)
+2019-07-24T09:59:38.3783549+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Route matched with "{area = \"Admin\", action = \"Index\", controller = \"Login\", page = \"\"}". Executing controller action with signature "Microsoft.AspNetCore.Mvc.IActionResult Index()" on controller "OnlineShop.Areas.Admin.Controllers.LoginController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:38.3854901+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Areas.Admin.Controllers.LoginController.Index (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:38.3882063+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Areas.Admin.Controllers.LoginController.Index (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 0.3621ms. (50a9e262)
+2019-07-24T09:59:38.4013120+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executing ViewResult, running view "Index". (c83d0e25)
+2019-07-24T09:59:38.4744757+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executed ViewResult - view "Index" executed in 84.0605ms. (f66409e9)
+2019-07-24T09:59:38.4782735+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executed action "OnlineShop.Areas.Admin.Controllers.LoginController.Index (OnlineShop)" in 96.2001ms (afa2e885)
+2019-07-24T09:59:38.4809209+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Areas.Admin.Controllers.LoginController.Index (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:38.5215857+07:00 800000e0-0000-c000-b63f-84710c7967bb [INF] Request finished in 161.8215ms 200 text/html; charset=utf-8 (791a596a)
+2019-07-24T09:59:38.7259196+07:00 80000125-0002-ae00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/lib/bootstrap/dist/css/bootstrap.css.map   (ca22a1cb)
+2019-07-24T09:59:38.7682822+07:00 80000125-0002-ae00-b63f-84710c7967bb [INF] Sending file. Request path: '"/lib/bootstrap/dist/css/bootstrap.css.map"'. Physical path: '"E:\New folder\ASP.NET Core\Projects\OnlineShop\OnlineShop\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map"' (27b0a520)
+2019-07-24T09:59:38.7729054+07:00 80000125-0002-ae00-b63f-84710c7967bb [INF] Request finished in 48.8218ms 200 text/plain (791a596a)
+2019-07-24T09:59:40.5630542+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Request starting HTTP/2.0 POST https://localhost:44363/admin/login/authen application/x-www-form-urlencoded; charset=UTF-8 30 (ca22a1cb)
+2019-07-24T09:59:40.5697103+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] CORS policy execution failed. (09b6f179)
+2019-07-24T09:59:40.5722150+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Request origin "https://localhost:44363" does not have permission to access the resource. (a03d560b)
+2019-07-24T09:59:40.5790139+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Areas.Admin.Controllers.LoginController.Authen (OnlineShop)"' (500cc934)
+2019-07-24T09:59:40.6094415+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Route matched with "{area = \"Admin\", action = \"Authen\", controller = \"Login\", page = \"\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Authen(OnlineShop.Models.LoginViewModel)" on controller "OnlineShop.Areas.Admin.Controllers.LoginController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:40.6797209+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Areas.Admin.Controllers.LoginController.Authen (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:40.6962312+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Entity Framework Core "2.2.4-servicing-10062" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "MigrationsAssembly=OnlineShop.Data.EF " (9958f5bb)
+2019-07-24T09:59:40.7942100+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("33"ms) [Parameters=["@__normalizedUserName_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [u].[Id], [u].[AccessFailedCount], [u].[Avatar], [u].[Balance], [u].[BirthDay], [u].[ConcurrencyStamp], [u].[DateCreated], [u].[DateModified], [u].[Email], [u].[EmailConfirmed], [u].[FullName], [u].[LockoutEnabled], [u].[LockoutEnd], [u].[NormalizedEmail], [u].[NormalizedUserName], [u].[PasswordHash], [u].[PhoneNumber], [u].[PhoneNumberConfirmed], [u].[SecurityStamp], [u].[Status], [u].[TwoFactorEnabled], [u].[UserName]
+FROM [AppUsers] AS [u]
+WHERE [u].[NormalizedUserName] = @__normalizedUserName_0" (0723d8ff)
+2019-07-24T09:59:41.1543735+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__user_Id_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [uc].[Id], [uc].[ClaimType], [uc].[ClaimValue], [uc].[UserId]
+FROM [AppUserClaims] AS [uc]
+WHERE [uc].[UserId] = @__user_Id_0" (0723d8ff)
+2019-07-24T09:59:41.2365056+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("23"ms) [Parameters=["@__userId_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AppUserRoles] AS [userRole]
+INNER JOIN [AppRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0" (0723d8ff)
+2019-07-24T09:59:41.2702030+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__normalizedName_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Description], [r].[Name], [r].[NormalizedName]
+FROM [AppRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0" (0723d8ff)
+2019-07-24T09:59:41.3087178+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__role_Id_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AppRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0" (0723d8ff)
+2019-07-24T09:59:41.3171053+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("2"ms) [Parameters=["@__normalizedName_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Description], [r].[Name], [r].[NormalizedName]
+FROM [AppRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0" (0723d8ff)
+2019-07-24T09:59:41.3211480+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__role_Id_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AppRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0" (0723d8ff)
+2019-07-24T09:59:41.3275013+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__normalizedName_0='?' (Size = 4000)"], CommandType='Text', CommandTimeout='30']"
+""SELECT TOP(1) [r].[Id], [r].[ConcurrencyStamp], [r].[Description], [r].[Name], [r].[NormalizedName]
+FROM [AppRoles] AS [r]
+WHERE [r].[NormalizedName] = @__normalizedName_0" (0723d8ff)
+2019-07-24T09:59:41.3328403+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__role_Id_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [rc].[ClaimType], [rc].[ClaimValue]
+FROM [AppRoleClaims] AS [rc]
+WHERE [rc].[RoleId] = @__role_Id_0" (0723d8ff)
+2019-07-24T09:59:41.3404568+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("1"ms) [Parameters=["@__userId_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [role].[Name]
+FROM [AppUserRoles] AS [userRole]
+INNER JOIN [AppRoles] AS [role] ON [userRole].[RoleId] = [role].[Id]
+WHERE [userRole].[UserId] = @__userId_0" (0723d8ff)
+2019-07-24T09:59:41.3575550+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] AuthenticationScheme: "Identity.Application" signed in. (c66dd7e7)
+2019-07-24T09:59:41.3642940+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] User logged in. (fdce0db4)
+2019-07-24T09:59:41.3713309+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Areas.Admin.Controllers.LoginController.Authen (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 688.1207ms. (50a9e262)
+2019-07-24T09:59:41.3860614+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executing ObjectResult, writing value of type '"OnlineShop.Utilities.DTO.GenericResult"'. (8a1b66c8)
+2019-07-24T09:59:41.4783428+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed action "OnlineShop.Areas.Admin.Controllers.LoginController.Authen (OnlineShop)" in 866.48ms (afa2e885)
+2019-07-24T09:59:41.4820995+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Areas.Admin.Controllers.LoginController.Authen (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:41.4956460+07:00 8000023c-0001-e300-b63f-84710c7967bb [INF] Request finished in 933.0742ms 200 application/json; charset=utf-8 (791a596a)
+2019-07-24T09:59:41.5103426+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/Admin/Home/Index   (ca22a1cb)
+2019-07-24T09:59:41.5304935+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Areas.Admin.Controllers.HomeController.Index (OnlineShop)"' (500cc934)
+2019-07-24T09:59:41.5432900+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Route matched with "{area = \"Admin\", action = \"Index\", controller = \"Home\", page = \"\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index()" on controller "OnlineShop.Areas.Admin.Controllers.HomeController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:41.5680238+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Authorization was successful. (0d575a54)
+2019-07-24T09:59:41.5712406+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Areas.Admin.Controllers.HomeController.Index (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:41.5871912+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Entity Framework Core "2.2.4-servicing-10062" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "MigrationsAssembly=OnlineShop.Data.EF " (9958f5bb)
+2019-07-24T09:59:41.6606333+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("14"ms) [Parameters=["@__functionId_1='?' (Size = 128) (DbType = AnsiString)"], CommandType='Text', CommandTimeout='30']"
+""SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Functions] AS [f]
+        INNER JOIN [Permissions] AS [p] ON [f].[Id] = [p].[FunctionId]
+        INNER JOIN [AppRoles] AS [r] ON [p].[RoleId] = [r].[Id]
+        WHERE ([r].[Name] IN (N'Admin', N'Staff', N'Customer') AND ([f].[Id] = @__functionId_1)) AND ([p].[CanRead] = 1))
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END" (0723d8ff)
+2019-07-24T09:59:41.6816343+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Authorization was successful. (0d575a54)
+2019-07-24T09:59:41.6841456+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Areas.Admin.Controllers.HomeController.Index (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.ViewResult" in 110.6824ms. (50a9e262)
+2019-07-24T09:59:41.6911882+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executing ViewResult, running view "Index". (c83d0e25)
+2019-07-24T09:59:41.7842925+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed DbCommand ("5"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[IconCss], [x].[Id], [x].[Name], [x].[ParentId], [x].[SortOrder], [x].[Status], [x].[URL]
+FROM [Functions] AS [x]
+WHERE [x].[Status] = 1
+ORDER BY [x].[ParentId]" (0723d8ff)
+2019-07-24T09:59:41.9861829+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed ViewResult - view "Index" executed in 299.5484ms. (f66409e9)
+2019-07-24T09:59:41.9959333+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed action "OnlineShop.Areas.Admin.Controllers.HomeController.Index (OnlineShop)" in 449.4681ms (afa2e885)
+2019-07-24T09:59:41.9983993+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Areas.Admin.Controllers.HomeController.Index (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:42.0541840+07:00 8000023e-0001-e300-b63f-84710c7967bb [INF] Request finished in 536.1328ms 200 text/html; charset=utf-8 (791a596a)
+2019-07-24T09:59:42.0931035+07:00 800000b1-0003-c400-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/uploaded/images/20190704/13.png   (ca22a1cb)
+2019-07-24T09:59:42.1125894+07:00 800000b1-0003-c400-b63f-84710c7967bb [INF] The file "/uploaded/images/20190704/13.png" was not modified (f1f8d725)
+2019-07-24T09:59:42.2254773+07:00 800000b1-0003-c400-b63f-84710c7967bb [INF] Request finished in 24.365ms 304 image/png (791a596a)
+2019-07-24T09:59:42.5292392+07:00 800000e2-0000-c000-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/lib/signalr/signalr.js.map   (ca22a1cb)
+2019-07-24T09:59:42.6156133+07:00 800000e2-0000-c000-b63f-84710c7967bb [INF] Sending file. Request path: '"/lib/signalr/signalr.js.map"'. Physical path: '"E:\New folder\ASP.NET Core\Projects\OnlineShop\OnlineShop\wwwroot\lib\signalr\signalr.js.map"' (27b0a520)
+2019-07-24T09:59:42.6197065+07:00 800000e2-0000-c000-b63f-84710c7967bb [INF] Request finished in 89.3043ms 200 text/plain (791a596a)
+2019-07-24T09:59:42.7294325+07:00 80000240-0001-e300-b63f-84710c7967bb [INF] Request starting HTTP/2.0 POST https://localhost:44363/shopHub/negotiate text/plain;charset=UTF-8 0 (ca22a1cb)
+2019-07-24T09:59:42.7746572+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/admin/announcement/GetAllPaging?page=1&pageSize=10   (ca22a1cb)
+2019-07-24T09:59:42.7991439+07:00 80000240-0001-e300-b63f-84710c7967bb [INF] CORS policy execution failed. (09b6f179)
+2019-07-24T09:59:42.8053624+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44363/Admin/Home/GetRevenue   (ca22a1cb)
+2019-07-24T09:59:42.8307786+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Areas.Admin.Controllers.AnnouncementController.GetAllPaging (OnlineShop)"' (500cc934)
+2019-07-24T09:59:42.8359337+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executing endpoint '"OnlineShop.Areas.Admin.Controllers.HomeController.GetRevenue (OnlineShop)"' (500cc934)
+2019-07-24T09:59:42.8400698+07:00 80000240-0001-e300-b63f-84710c7967bb [INF] Request origin "https://localhost:44363" does not have permission to access the resource. (a03d560b)
+2019-07-24T09:59:42.8431322+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Route matched with "{area = \"Admin\", action = \"GetAllPaging\", controller = \"Announcement\", page = \"\"}". Executing controller action with signature "Microsoft.AspNetCore.Mvc.IActionResult GetAllPaging(Int32, Int32)" on controller "OnlineShop.Areas.Admin.Controllers.AnnouncementController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:42.8558169+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Authorization was successful. (0d575a54)
+2019-07-24T09:59:42.8599330+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Route matched with "{area = \"Admin\", action = \"GetRevenue\", controller = \"Home\", page = \"\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetRevenue(System.String, System.String)" on controller "OnlineShop.Areas.Admin.Controllers.HomeController" ("OnlineShop"). (122b2fdf)
+2019-07-24T09:59:42.8761841+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Authorization was successful. (0d575a54)
+2019-07-24T09:59:42.8840809+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Areas.Admin.Controllers.AnnouncementController.GetAllPaging (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:42.9163316+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executing action method "OnlineShop.Areas.Admin.Controllers.HomeController.GetRevenue (OnlineShop)" - Validation state: Valid (dad538d7)
+2019-07-24T09:59:42.9449776+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.4-servicing-10062" initialized '"AppDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "MigrationsAssembly=OnlineShop.Data.EF " (9958f5bb)
+2019-07-24T09:59:42.9691105+07:00 80000240-0001-e300-b63f-84710c7967bb [INF] Request finished in 290.3411ms 200 application/json (791a596a)
+2019-07-24T09:59:43.0150264+07:00 800000b3-0003-c400-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44363/shopHub?id=xHKZYDVsfFU-lsFoXV7g2A   (ca22a1cb)
+2019-07-24T09:59:43.0241485+07:00 800000b3-0003-c400-b63f-84710c7967bb [INF] CORS policy execution failed. (09b6f179)
+2019-07-24T09:59:43.0263142+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executed DbCommand ("11"ms) [Parameters=["@__userId_0='?' (DbType = Guid)"], CommandType='Text', CommandTimeout='30']"
+""SELECT COUNT(*)
+FROM [Announcements] AS [x]
+LEFT JOIN [AnnouncementUsers] AS [y] ON [x].[Id] = [y].[AnnouncementId]
+WHERE ([y].[HasRead] = 0) AND ([y].[UserId] IS NULL OR ([y].[UserId] = @__userId_0))" (0723d8ff)
+2019-07-24T09:59:43.0325256+07:00 800000b3-0003-c400-b63f-84710c7967bb [INF] Request origin "https://localhost:44363" does not have permission to access the resource. (a03d560b)
+2019-07-24T09:59:43.1489257+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executed DbCommand ("16"ms) [Parameters=["@__userId_0='?' (DbType = Guid), @__p_1='?' (DbType = Int32), @__p_2='?' (DbType = Int32)"], CommandType='Text', CommandTimeout='30']"
+""SELECT [x].[Content], [x].[DateCreated], [x].[DateModified], [x].[Id], [x].[Status], [x].[Title], [x].[UserId]
+FROM [Announcements] AS [x]
+LEFT JOIN [AnnouncementUsers] AS [y] ON [x].[Id] = [y].[AnnouncementId]
+WHERE ([y].[HasRead] = 0) AND ([y].[UserId] IS NULL OR ([y].[UserId] = @__userId_0))
+ORDER BY [x].[DateCreated] DESC
+OFFSET @__p_1 ROWS FETCH NEXT @__p_2 ROWS ONLY" (0723d8ff)
+2019-07-24T09:59:43.1711789+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Areas.Admin.Controllers.AnnouncementController.GetAllPaging (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 276.0474ms. (50a9e262)
+2019-07-24T09:59:43.1799259+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executing ObjectResult, writing value of type '"OnlineShop.Utilities.DTO.PagedResult`1[[OnlineShop.Services.ViewModels.system.AnnouncementViewModel, OnlineShop.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'. (8a1b66c8)
+2019-07-24T09:59:43.2513476+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executed action "OnlineShop.Areas.Admin.Controllers.AnnouncementController.GetAllPaging (OnlineShop)" in 387.0313ms (afa2e885)
+2019-07-24T09:59:43.2627715+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Areas.Admin.Controllers.AnnouncementController.GetAllPaging (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:43.2776844+07:00 80000290-0001-ec00-b63f-84710c7967bb [INF] Request finished in 564.6377ms 200 application/json; charset=utf-8 (791a596a)
+2019-07-24T09:59:43.3268165+07:00 800000b3-0003-c400-b63f-84710c7967bb [INF] Completed connection handshake. Using HubProtocol '"json"'. (421947a1)
+2019-07-24T09:59:43.3543092+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executed action method "OnlineShop.Areas.Admin.Controllers.HomeController.GetRevenue (OnlineShop)", returned result "Microsoft.AspNetCore.Mvc.OkObjectResult" in 432.1924ms. (50a9e262)
+2019-07-24T09:59:43.3588477+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executing ObjectResult, writing value of type '"System.Collections.Generic.List`1[[OnlineShop.Service.Dapper.ViewModels.RevenueReportViewModel, OnlineShop.Service.Dapper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"'. (8a1b66c8)
+2019-07-24T09:59:43.3746230+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executed action "OnlineShop.Areas.Admin.Controllers.HomeController.GetRevenue (OnlineShop)" in 508.2317ms (afa2e885)
+2019-07-24T09:59:43.3797235+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Executed endpoint '"OnlineShop.Areas.Admin.Controllers.HomeController.GetRevenue (OnlineShop)"' (99874f2b)
+2019-07-24T09:59:43.3960648+07:00 800000e4-0000-c000-b63f-84710c7967bb [INF] Request finished in 603.0201ms 200 application/json; charset=utf-8 (791a596a)
+2019-07-24T09:59:53.5001523+07:00 800000b3-0003-c400-b63f-84710c7967bb [INF] Request finished in 10493.4389ms 101  (791a596a)

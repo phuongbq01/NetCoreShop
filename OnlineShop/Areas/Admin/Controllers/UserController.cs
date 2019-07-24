@@ -75,7 +75,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 var notificationId = Guid.NewGuid().ToString();
                 var announcement = new AnnouncementViewModel()
                 {
-                    Title = "Role created",
+                    Title = "User created",
                     DateCreated = DateTime.Now,
                     Content = $"User '{userVm.FullName}' has been created",
                     Id = notificationId,

@@ -100,7 +100,7 @@
                     $('#hidId').val(data.Id);
                     $('#txtFullName').val(data.FullName);
                     $('#txtUserName').val(data.UserName);
-                    $('#txtImage').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.Avatar);
                     $('#txtEmail').val(data.Email);
                     $('#txtPhoneNumber').val(data.PhoneNumber);
                     $('#ckStatus').prop('checked', data.Status === 1);
@@ -217,6 +217,7 @@
         $('#txtFullName').val('');
         $('#txtUserName').val('');
         $('#txtPassword').val('');
+        $('#txtImage').val('');
         $('#txtConfirmPassword').val('');
         $('input[name="ckRoles"]').removeAttr('checked');
         $('#txtEmail').val('');

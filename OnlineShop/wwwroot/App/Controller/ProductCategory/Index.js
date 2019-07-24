@@ -68,7 +68,7 @@
 
                     $('#txtDescM').val(data.Description);
 
-                    $('#txtImage').val(data.ThumbnailImage);
+                    $('#txtImage').val(data.Image);
 
                     $('#txtSeoKeywordM').val(data.SeoKeywords);
                     $('#txtSeoDescriptionM').val(data.SeoDescription);
@@ -185,7 +185,7 @@
         $('#txtDescM').val('');
         $('#txtOrderM').val('');
         $('#txtHomeOrderM').val('');
-        $('#txtImageM').val('');
+        $('#txtImage').val('');
 
         $('#txtMetakeywordM').val('');
         $('#txtMetaDescriptionM').val('');

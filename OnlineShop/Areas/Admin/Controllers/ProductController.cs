@@ -88,10 +88,12 @@ namespace OnlineShop.Areas.Admin.Controllers
                 productVm.SeoAlias = TextHelper.ToUnsignString(productVm.Name);
                 if (productVm.Id == 0)
                 {
+                    productVm.DateCreated = DateTime.Now;
                     _productService.Add(productVm);
                 }
                 else
                 {
+                    productVm.DateModified = DateTime.Now;
                     _productService.Update(productVm);
                 }
                 _productService.Save();

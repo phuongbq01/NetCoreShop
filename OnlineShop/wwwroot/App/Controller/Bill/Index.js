@@ -363,7 +363,7 @@
                             CustomerName: item.CustomerName,
                             Id: item.Id,
                             PaymentMethod: getPaymentMethodName(item.PaymentMethod),
-                            DateCreated: Common.dateTimeFormatJson(item.DateCreated),
+                            DateCreated: item.DateCreated,/*Common.dateTimeFormatJson(item.DateCreated),*/
                             BillStatus: getBillStatusName(item.BillStatus)
                         });
                     });
